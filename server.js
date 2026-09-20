@@ -107,12 +107,35 @@ function generateRegistrationId(count) {
   return `AWS-RU-${randomSuffix}`;
 }
 
+// Pre-read HTML files so Vercel NFT bundles them and in-memory cache guarantees 200 OK
+let indexHtml = '';
+let adminHtml = '';
+try {
+  indexHtml = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf-8');
+} catch (e) {
+  try { indexHtml = fs.readFileSync(path.join(__dirname, 'public', 'index.html'), 'utf-8'); } catch (e2) {}
+}
+
+try {
+  adminHtml = fs.readFileSync(path.join(__dirname, 'admin.html'), 'utf-8');
+} catch (e) {
+  try { adminHtml = fs.readFileSync(path.join(__dirname, 'public', 'admin.html'), 'utf-8'); } catch (e2) {}
+}
+
 // Serve Pages directly
 app.get('/', (req, res) => {
+  if (indexHtml) {
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    return res.send(indexHtml);
+  }
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 app.get('/admin', (req, res) => {
+  if (adminHtml) {
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    return res.send(adminHtml);
+  }
   res.sendFile(path.join(__dirname, 'admin.html'));
 });
 
