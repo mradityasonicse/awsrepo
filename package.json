@@ -2,7 +2,6 @@
   "name": "aws-community-day-registration",
   "version": "1.0.0",
   "description": "AWS Student Builder Community Day Registration Portal & Admin Dashboard",
-  "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
