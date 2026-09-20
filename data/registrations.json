@@ -1,5 +1,16 @@
 [
   {
+    "id": "AWS-RU-9236",
+    "name": "Aman Sharma",
+    "email": "aman.sharma@rungta.ac.in",
+    "phone": "9876543210",
+    "branch": "Computer Science & Engineering",
+    "year": "3rd Year / Sec A",
+    "section": "A",
+    "registeredAt": "2026-09-20T10:47:37.896Z",
+    "formattedDate": "20 Sept 2026, 4:17 pm"
+  },
+  {
     "id": "AWS-RU-3629",
     "name": "Aditya sao",
     "email": "aditya.sao@rungta.org",

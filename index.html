@@ -238,9 +238,391 @@
       border-color: #38bdf8;
       color: #fff;
     }
+  
+    /* === AWWWARDS / GODLY / DRIBBBLE DESIGN INSPIRATION ADDITIONS === */
+    
+    /* Top Announcement Ribbon */
+    .top-announcement-ribbon {
+      background: linear-gradient(90deg, rgba(255, 153, 0, 0.18), rgba(0, 240, 255, 0.15), rgba(139, 92, 246, 0.18));
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 0.55rem 1.25rem;
+      font-size: 0.8125rem;
+      text-align: center;
+      position: relative;
+      z-index: 1001;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .announcement-inner {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .pulse-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 12px #10b981;
+      animation: pulseDot 2s infinite ease-in-out;
+    }
+    @keyframes pulseDot {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.4); opacity: 0.4; }
+    }
+    .announcement-text {
+      color: #e2e8f0;
+      letter-spacing: 0.02em;
+    }
+    .announcement-text strong {
+      color: var(--color-aws-amber, #FF9900);
+      font-family: var(--font-jetbrains);
+    }
+    .announcement-cta {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      font-family: var(--font-jetbrains);
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .announcement-cta:hover {
+      background: var(--color-aws-amber, #FF9900);
+      color: #000;
+      border-color: var(--color-aws-amber, #FF9900);
+    }
+
+    /* Ambient Auroras (Godly/Awwwards style) */
+    .aurora-bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .aurora-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(140px);
+      opacity: 0.16;
+      animation: auroraFloat 20s ease-in-out infinite alternate;
+    }
+    .aurora-blob--1 {
+      width: 520px;
+      height: 520px;
+      background: #ff9900;
+      top: -120px;
+      left: 15%;
+    }
+    .aurora-blob--2 {
+      width: 600px;
+      height: 600px;
+      background: #00f0ff;
+      top: 35%;
+      right: -100px;
+      animation-delay: -6s;
+    }
+    .aurora-blob--3 {
+      width: 480px;
+      height: 480px;
+      background: #8b5cf6;
+      bottom: 5%;
+      left: 10%;
+      animation-delay: -12s;
+    }
+    @keyframes auroraFloat {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(60px, 90px) scale(1.15); }
+      100% { transform: translate(-50px, -70px) scale(0.9); }
+    }
+
+    /* Kinetic Infinite Marquee (Godly style) */
+    .kinetic-marquee-section {
+      padding: 1.75rem 0;
+      overflow: hidden;
+      position: relative;
+      background: rgba(9, 13, 22, 0.7);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .marquee-track {
+      display: flex;
+      gap: 1.5rem;
+      width: max-content;
+      animation: marqueeScroll 45s linear infinite;
+    }
+    .marquee-track--reverse {
+      animation: marqueeScrollReverse 45s linear infinite;
+      margin-top: 0.85rem;
+    }
+    .marquee-track:hover {
+      animation-play-state: paused;
+    }
+    @keyframes marqueeScroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    @keyframes marqueeScrollReverse {
+      0% { transform: translateX(-50%); }
+      100% { transform: translateX(0); }
+    }
+    .marquee-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: var(--font-jetbrains);
+      font-size: 0.825rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: #f0f6fc;
+      white-space: nowrap;
+      padding: 0.4rem 1rem;
+      background: rgba(255, 255, 255, 0.035);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 999px;
+      transition: all 0.25s ease;
+    }
+    .marquee-tag:hover {
+      background: rgba(255, 153, 0, 0.15);
+      border-color: rgba(255, 153, 0, 0.5);
+      color: #fff;
+    }
+    .marquee-tag .star {
+      color: var(--color-aws-amber, #FF9900);
+      font-size: 0.8rem;
+    }
+
+    /* Card Spotlight Hover Effect (Godly & Awwwards) */
+    .card-spotlight {
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.3s ease;
+    }
+    .card-spotlight::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle 300px at var(--mouse-x, -500px) var(--mouse-y, -500px), rgba(255, 153, 0, 0.15), transparent 70%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      border-radius: inherit;
+      z-index: 1;
+    }
+    .card-spotlight:hover::before {
+      opacity: 1;
+    }
+
+    /* Interactive Schedule Track Filters (Mobbin & Collect UI) */
+    .schedule-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      justify-content: center;
+      margin-bottom: 2.5rem;
+    }
+    .schedule-filter-btn {
+      font-family: var(--font-jetbrains);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      padding: 0.6rem 1.2rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #94a3b8;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .schedule-filter-btn:hover {
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+    .schedule-filter-btn.active {
+      background: rgba(255, 153, 0, 0.15);
+      border-color: var(--color-aws-amber, #FF9900);
+      color: #fff;
+      box-shadow: 0 0 20px rgba(255, 153, 0, 0.25);
+    }
+
+    /* 3D Tilt Card (Awwwards/Dribbble) */
+    .tilt-card {
+      transform-style: preserve-3d;
+      transition: transform 0.2s ease-out;
+    }
+
+    /* Holographic Digital Pass (Dribbble/Behance) */
+    .hologram-pass {
+      position: relative;
+      background: linear-gradient(145deg, #0d1424, #080c16);
+      border-radius: 20px;
+      padding: 3px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.85), 0 0 40px rgba(0, 240, 255, 0.25);
+      margin-top: 1.5rem;
+      overflow: hidden;
+    }
+    .hologram-pass-inner {
+      background: #090e1a;
+      border-radius: 17px;
+      padding: 1.75rem;
+      position: relative;
+      z-index: 2;
+    }
+    .hologram-watermark {
+      position: absolute;
+      right: -20px;
+      bottom: -20px;
+      opacity: 0.04;
+      pointer-events: none;
+      font-size: 15rem;
+      font-family: var(--font-jetbrains);
+      font-weight: 900;
+      color: #fff;
+    }
+    .barcode-scanner-box {
+      position: relative;
+      background: #03060c;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      padding: 0.85rem 1rem;
+      margin: 1.25rem 0;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .barcode-stripes {
+      height: 38px;
+      width: 85%;
+      background: repeating-linear-gradient(90deg, #fff, #fff 2px, transparent 2px, transparent 4px, #fff 4px, #fff 7px, transparent 7px, transparent 9px, #fff 9px, #fff 10px, transparent 10px, transparent 14px);
+      opacity: 0.85;
+    }
+    .laser-scan-line {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: #00f0ff;
+      box-shadow: 0 0 10px #00f0ff, 0 0 20px #00f0ff;
+      animation: laserSweep 2.8s ease-in-out infinite alternate;
+    }
+    @keyframes laserSweep {
+      0% { left: 5%; opacity: 0.9; }
+      100% { left: 95%; opacity: 0.9; }
+    }
+
+    /* Floating Toast Notification (Mobbin/Collect UI) */
+    .toast-notification {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: rgba(13, 19, 34, 0.96);
+      border: 1px solid var(--color-text-accent, #00F0FF);
+      color: #fff;
+      padding: 0.85rem 1.4rem;
+      border-radius: 999px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.85), 0 0 25px rgba(0, 240, 255, 0.35);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      z-index: 100000;
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-family: var(--font-jetbrains);
+      font-size: 0.85rem;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+    }
+    .toast-notification.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* Mobile Floating Bar (One Page Love / Land-book) */
+    .mobile-floating-bar {
+      display: none;
+      position: fixed;
+      bottom: 1.25rem;
+      left: 1.25rem;
+      right: 1.25rem;
+      background: rgba(9, 13, 22, 0.92);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 999px;
+      padding: 0.55rem 0.85rem 0.55rem 1.35rem;
+      z-index: 9999;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 15px 45px rgba(0,0,0,0.9), 0 0 25px rgba(255, 153, 0, 0.25);
+    }
+    @media (max-width: 768px) {
+      .mobile-floating-bar {
+        display: flex;
+      }
+    }
+    .mobile-floating-info {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+    .mobile-floating-date {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #fff;
+      font-family: var(--font-jetbrains);
+    }
+    .mobile-floating-seats {
+      font-size: 0.72rem;
+      color: #10b981;
+      font-weight: 600;
+    }
+    .mobile-floating-btn {
+      background: var(--color-aws-amber, #FF9900);
+      color: #000;
+      font-weight: 800;
+      font-size: 0.8125rem;
+      padding: 0.65rem 1.15rem;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-family: var(--font-jetbrains);
+      box-shadow: 0 4px 15px rgba(255, 153, 0, 0.4);
+    }
+
   </style>
 </head>
 <body class="font-sans antialiased">
+
+  <!-- AWWWARDS / GODLY TOP ANNOUNCEMENT BANNER -->
+  <aside class="top-announcement-ribbon" role="region" aria-label="Announcement">
+    <div class="announcement-inner">
+      <span class="pulse-dot" aria-hidden="true"></span>
+      <span class="announcement-text">
+        <strong>REGISTRATIONS OPEN:</strong> AWS Student Builder Community Day '26 @ Rungta University, Bhilai
+      </span>
+      <button type="button" class="announcement-cta" onclick="document.getElementById('navRegBtn').click()">
+        Claim Free Pass ➔
+      </button>
+    </div>
+  </aside>
+
+  <!-- GODLY AMBIENT LIGHT AURORAS -->
+  <div class="aurora-bg" aria-hidden="true">
+    <div class="aurora-blob aurora-blob--1"></div>
+    <div class="aurora-blob aurora-blob--2"></div>
+    <div class="aurora-blob aurora-blob--3"></div>
+  </div>
+
 
   <!-- Top Scroll Progress Bar -->
   <div class="scroll-progress-bar" id="scrollProgressBar" style="transform: scaleX(0);" aria-hidden="true"></div>
@@ -396,6 +778,49 @@
         </div>
       </section>
 
+      
+      <!-- AWWWARDS KINETIC INFINITE MARQUEE -->
+      <section class="kinetic-marquee-section" aria-label="Highlights and Topics">
+        <div class="marquee-track">
+          <span class="marquee-tag"><span class="star">✦</span> AWS CLOUD INFRASTRUCTURE</span>
+          <span class="marquee-tag"><span class="star">✦</span> GENERATIVE AI & AMAZON BEDROCK</span>
+          <span class="marquee-tag"><span class="star">✦</span> 100% FREE COMMUNITY PASSES</span>
+          <span class="marquee-tag"><span class="star">✦</span> SERVERLESS ARCHITECTURE</span>
+          <span class="marquee-tag"><span class="star">✦</span> DEVSECOPS & CONTAINERS</span>
+          <span class="marquee-tag"><span class="star">✦</span> LIVE HANDS-ON LABS</span>
+          <span class="marquee-tag"><span class="star">✦</span> RUNGTA UNIVERSITY BHILAI</span>
+          <span class="marquee-tag"><span class="star">✦</span> 22 AUGUST 2026</span>
+          <span class="marquee-tag"><span class="star">✦</span> EXCLUSIVE SWAGS & MERCH</span>
+          <span class="marquee-tag"><span class="star">✦</span> AWS CLOUD INFRASTRUCTURE</span>
+          <span class="marquee-tag"><span class="star">✦</span> GENERATIVE AI & AMAZON BEDROCK</span>
+          <span class="marquee-tag"><span class="star">✦</span> 100% FREE COMMUNITY PASSES</span>
+          <span class="marquee-tag"><span class="star">✦</span> SERVERLESS ARCHITECTURE</span>
+          <span class="marquee-tag"><span class="star">✦</span> DEVSECOPS & CONTAINERS</span>
+          <span class="marquee-tag"><span class="star">✦</span> LIVE HANDS-ON LABS</span>
+          <span class="marquee-tag"><span class="star">✦</span> RUNGTA UNIVERSITY BHILAI</span>
+          <span class="marquee-tag"><span class="star">✦</span> 22 AUGUST 2026</span>
+          <span class="marquee-tag"><span class="star">✦</span> EXCLUSIVE SWAGS & MERCH</span>
+        </div>
+        <div class="marquee-track marquee-track--reverse">
+          <span class="marquee-tag"><span class="star">✦</span> DOCKER & KUBERNETES</span>
+          <span class="marquee-tag"><span class="star">✦</span> PROMPT ENGINEERING</span>
+          <span class="marquee-tag"><span class="star">✦</span> AWS LAMBDA & DYNAMODB</span>
+          <span class="marquee-tag"><span class="star">✦</span> MICROSERVICES SCALING</span>
+          <span class="marquee-tag"><span class="star">✦</span> STUDENT BUILDER HACKATHON</span>
+          <span class="marquee-tag"><span class="star">✦</span> INDUSTRY MENTORSHIP</span>
+          <span class="marquee-tag"><span class="star">✦</span> AWS CERTIFICATIONS ROADMAP</span>
+          <span class="marquee-tag"><span class="star">✦</span> BUILD. LEARN. CONNECT.</span>
+          <span class="marquee-tag"><span class="star">✦</span> DOCKER & KUBERNETES</span>
+          <span class="marquee-tag"><span class="star">✦</span> PROMPT ENGINEERING</span>
+          <span class="marquee-tag"><span class="star">✦</span> AWS LAMBDA & DYNAMODB</span>
+          <span class="marquee-tag"><span class="star">✦</span> MICROSERVICES SCALING</span>
+          <span class="marquee-tag"><span class="star">✦</span> STUDENT BUILDER HACKATHON</span>
+          <span class="marquee-tag"><span class="star">✦</span> INDUSTRY MENTORSHIP</span>
+          <span class="marquee-tag"><span class="star">✦</span> AWS CERTIFICATIONS ROADMAP</span>
+          <span class="marquee-tag"><span class="star">✦</span> BUILD. LEARN. CONNECT.</span>
+        </div>
+      </section>
+
       <!-- ABOUT SECTION -->
       <section id="about" class="about-section">
         <div class="container">
@@ -524,6 +949,15 @@
             <span class="caption" style="color:var(--color-text-accent)">✦ EVENT AGENDA ✦</span>
             <h2 class="h2">Event Timeline</h2>
             <p class="body-md">An action-packed day of keynotes, hands-on labs, networking, and live builder showcases.</p>
+          </div>
+
+          
+          <!-- INTERACTIVE SCHEDULE TRACK FILTERS (MOBBIN / COLLECT UI) -->
+          <div class="schedule-filters" role="tablist">
+            <button type="button" class="schedule-filter-btn active" data-filter="all">All Sessions (8)</button>
+            <button type="button" class="schedule-filter-btn" data-filter="keynote">Keynotes & Talks (2)</button>
+            <button type="button" class="schedule-filter-btn" data-filter="workshop">Hands-on Labs (2)</button>
+            <button type="button" class="schedule-filter-btn" data-filter="social">Networking & Contests (4)</button>
           </div>
 
           <div class="timeline__container">
@@ -1109,52 +1543,69 @@
           Your official digital pass has been generated. Details sent to WhatsApp!
         </p>
 
-        <div class="pass-ticket-card">
-          <div class="pass-ticket-header">
-            <div>
-              <span style="font-size:0.7rem; color:var(--color-text-muted); display:block; font-family:var(--font-jetbrains);">PASS IDENTIFIER</span>
-              <span class="ticket-id-tag" id="ticketPassId">#AWS-RU-0000</span>
+        
+        <div class="hologram-pass tilt-card" id="hologramTicket">
+          <div class="hologram-pass-inner">
+            <div class="hologram-watermark">AWS</div>
+            <div class="pass-ticket-header">
+              <div>
+                <span class="modal-step-badge">CONFIRMED ATTENDEE PASS</span>
+                <div style="font-size:0.75rem;color:var(--color-text-secondary);margin-top:0.25rem;">AWS Student Builder Community Day '26</div>
+              </div>
+              <div class="ticket-id-tag" id="ticketPassId">#AWS-RU-0000</div>
             </div>
-            <span style="font-family:var(--font-jetbrains); font-size:0.75rem; color:#00F0FF; font-weight:700; background:rgba(0,240,255,0.1); padding:0.25rem 0.6rem; border-radius:4px; border:1px solid rgba(0,240,255,0.3);">CONFIRMED</span>
-          </div>
 
-          <div class="ticket-grid">
-            <div class="ticket-grid-item">
-              <label>ATTENDEE</label>
-              <div id="ticketName">---</div>
+            <div class="ticket-grid">
+              <div class="ticket-grid-item">
+                <label>ATTENDEE NAME</label>
+                <div id="ticketName">---</div>
+              </div>
+              <div class="ticket-grid-item">
+                <label>DEPARTMENT / BRANCH</label>
+                <div id="ticketBranch">---</div>
+              </div>
+              <div class="ticket-grid-item">
+                <label>YEAR / ACADEMIC SEC</label>
+                <div id="ticketYear">---</div>
+              </div>
+              <div class="ticket-grid-item">
+                <label>REGISTERED PHONE</label>
+                <div id="ticketPhone">---</div>
+              </div>
             </div>
-            <div class="ticket-grid-item">
-              <label>BRANCH</label>
-              <div id="ticketBranch">---</div>
-            </div>
-            <div class="ticket-grid-item">
-              <label>YEAR / SEC</label>
-              <div id="ticketYear">---</div>
-            </div>
-            <div class="ticket-grid-item">
-              <label>PHONE</label>
-              <div id="ticketPhone">---</div>
-            </div>
-          </div>
 
-          <div style="font-size:0.78rem; color:var(--color-text-muted); border-top:1px dashed rgba(255,255,255,0.1); padding-top:0.6rem; text-align:left;">
-            📍 Rungta University Campus Auditorium, Bhilai • 22 August 2026
+            <!-- Dynamic Barcode with Laser Beam Animation -->
+            <div class="barcode-scanner-box">
+              <div class="laser-scan-line"></div>
+              <div class="barcode-stripes"></div>
+              <div style="font-family:var(--font-jetbrains);font-size:0.7rem;color:#64748b;letter-spacing:0.15em;">SECURE ENTRY VERIFIED</div>
+            </div>
+
+            <div style="font-size:0.78rem; color:var(--color-text-muted); border-top:1px dashed rgba(255,255,255,0.1); padding-top:0.75rem; text-align:left;">
+              📍 Rungta University Campus Auditorium, Bhilai • 22 August 2026 • 9:00 AM IST
+            </div>
           </div>
         </div>
 
         <div class="ticket-actions">
           <a href="#" target="_blank" class="btn-wa-direct" id="openWhatsAppBtn">
-            <span>💬</span> Open Details in WhatsApp
+            <span>💬</span> Send Ticket Details to WhatsApp
           </a>
 
-          <button type="button" class="btn-ticket-secondary" id="copyPassTextBtn">
-            <span>📋 Copy Pass Information to Clipboard</span>
-          </button>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
+            <button type="button" class="btn-ticket-secondary" id="copyPassTextBtn">
+              <span>📋 Copy Pass ID</span>
+            </button>
+            <button type="button" class="btn-ticket-secondary" id="printTicketBtn">
+              <span>🖨️ Print Ticket</span>
+            </button>
+          </div>
 
-          <button type="button" class="btn-ticket-secondary" id="registerAnotherStudentBtn" style="border-color:transparent;">
+          <button type="button" class="btn-ticket-secondary" id="registerAnotherStudentBtn" style="border-color:transparent;color:#94a3b8;">
             <span>&larr; Register Another Student</span>
           </button>
         </div>
+
       </div>
     </div>
   </div>
@@ -1454,6 +1905,150 @@
     document.getElementById('backToTopBtn').addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+  
+    // === AWWWARDS & GODLY INTERACTIVE SCRIPTS ===
+
+    // Toast Notification Helper
+    function showToast(msg) {
+      const toast = document.getElementById('toastNotification');
+      const text = document.getElementById('toastMessage');
+      if (toast && text) {
+        text.textContent = msg;
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 3000);
+      }
+    }
+
+    // Dynamic Card Spotlight (Godly / Awwwards)
+    document.querySelectorAll('.why__card, .sponsors__card, .testimonials__card, .inventor-card, .venue__card').forEach(card => {
+      card.classList.add('card-spotlight');
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
+      });
+    });
+
+    // 3D Tilt Effect on Inventor Cards and Pass
+    document.querySelectorAll('.inventor-card, .tilt-card').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -7;
+        const rotateY = ((x - centerX) / centerX) * 7;
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+      });
+    });
+
+    // Schedule Track Filter Logic (Mobbin & Collect UI)
+    const filterButtons = document.querySelectorAll('.schedule-filter-btn');
+    const timelineItems = document.querySelectorAll('.timeline__item');
+    
+    // Assign tracks to timeline items
+    const trackAssignments = ['social', 'keynote', 'workshop', 'social', 'social', 'workshop', 'social', 'keynote'];
+    timelineItems.forEach((item, idx) => {
+      item.setAttribute('data-track', trackAssignments[idx] || 'all');
+    });
+
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.getAttribute('data-filter');
+
+        timelineItems.forEach(item => {
+          const track = item.getAttribute('data-track');
+          if (filter === 'all' || track === filter) {
+            item.style.display = 'flex';
+            item.style.opacity = '1';
+            item.style.transform = 'translateY(0)';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // Print Ticket Handler
+    const printBtn = document.getElementById('printTicketBtn');
+    if (printBtn) {
+      printBtn.addEventListener('click', () => {
+        window.print();
+      });
+    }
+
+    // Enhance Copy Pass Action with Toast
+    const copyBtn = document.getElementById('copyPassTextBtn');
+    if (copyBtn) {
+      copyBtn.addEventListener('click', () => {
+        const passId = document.getElementById('ticketPassId').textContent;
+        showToast(`${passId} copied to clipboard!`);
+      });
+    }
+
+    // Number Count-Up Animation (Intersection Observer)
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const target = entry.target;
+          if (target.dataset.counted) return;
+          target.dataset.counted = "true";
+
+          const text = target.textContent.trim();
+          const match = text.match(/^(\d+)(\+?)$/);
+          if (match) {
+            const finalNum = parseInt(match[1], 10);
+            const suffix = match[2] || '';
+            let current = 0;
+            const duration = 1200;
+            const stepTime = 25;
+            const steps = duration / stepTime;
+            const increment = Math.ceil(finalNum / steps);
+
+            const timer = setInterval(() => {
+              current += increment;
+              if (current >= finalNum) {
+                target.textContent = finalNum + suffix;
+                clearInterval(timer);
+              } else {
+                target.textContent = current + suffix;
+              }
+            }, stepTime);
+          }
+        }
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.hero-stats__value, .venue__stat-num').forEach(el => {
+      observer.observe(el);
+    });
+
   </script>
+
+  <!-- MOBILE FLOATING CONVERSION BAR (ONE PAGE LOVE / LAND-BOOK) -->
+  <div class="mobile-floating-bar" id="mobileFloatingBar">
+    <div class="mobile-floating-info">
+      <span class="mobile-floating-date">📅 22 Aug 2026</span>
+      <span class="mobile-floating-seats">● 100% Free Entry</span>
+    </div>
+    <button type="button" class="mobile-floating-btn" onclick="document.getElementById('navRegBtn').click()">
+      Claim Free Pass ➔
+    </button>
+  </div>
+
+  <!-- FLOATING TOAST NOTIFICATION -->
+  <div id="toastNotification" class="toast-notification" role="status" aria-live="polite">
+    <span class="toast-icon">✨</span>
+    <span id="toastMessage">Pass Information Copied!</span>
+  </div>
+
 </body>
 </html>
