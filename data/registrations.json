@@ -1,5 +1,16 @@
 [
   {
+    "id": "AWS-RU-8738",
+    "name": "Vikramaditya Verma",
+    "email": "vikram.v@rungta.ac.in",
+    "phone": "9876543210",
+    "branch": "Computer Science & Engineering",
+    "year": "3rd Year / Section B",
+    "section": "A",
+    "registeredAt": "2026-09-20T11:03:25.185Z",
+    "formattedDate": "20 Sept 2026, 4:33 pm"
+  },
+  {
     "id": "AWS-RU-9236",
     "name": "Aman Sharma",
     "email": "aman.sharma@rungta.ac.in",
