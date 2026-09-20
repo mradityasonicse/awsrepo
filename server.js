@@ -107,7 +107,11 @@ function generateRegistrationId(count) {
   return `AWS-RU-${randomSuffix}`;
 }
 
-// Serve Admin UI directly
+// Serve Pages directly
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+
 app.get('/admin', (req, res) => {
   res.sendFile(path.join(__dirname, 'admin.html'));
 });
