@@ -13,35 +13,59 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname)));
 
-// Ensure data folder exists
-const DATA_DIR = path.join(__dirname, 'data');
+// Ensure data folder exists (Support Vercel serverless /tmp filesystem)
+const isVercel = Boolean(process.env.VERCEL);
+const DATA_DIR = isVercel ? path.join('/tmp', 'data') : path.join(__dirname, 'data');
+
 if (!fs.existsSync(DATA_DIR)) {
-  fs.mkdirSync(DATA_DIR, { recursive: true });
+  try {
+    fs.mkdirSync(DATA_DIR, { recursive: true });
+  } catch (e) {
+    console.error('Could not create data dir:', e);
+  }
 }
 
 const REGISTRATIONS_FILE = path.join(DATA_DIR, 'registrations.json');
 const SETTINGS_FILE = path.join(DATA_DIR, 'settings.json');
 
+// If on Vercel, copy initial seed data from project folder to /tmp if available
+if (isVercel) {
+  const localReg = path.join(__dirname, 'data', 'registrations.json');
+  const localSet = path.join(__dirname, 'data', 'settings.json');
+  if (fs.existsSync(localReg) && !fs.existsSync(REGISTRATIONS_FILE)) {
+    try { fs.copyFileSync(localReg, REGISTRATIONS_FILE); } catch (e) {}
+  }
+  if (fs.existsSync(localSet) && !fs.existsSync(SETTINGS_FILE)) {
+    try { fs.copyFileSync(localSet, SETTINGS_FILE); } catch (e) {}
+  }
+}
+
 // Initialize registrations store if needed
 if (!fs.existsSync(REGISTRATIONS_FILE)) {
-  fs.writeFileSync(REGISTRATIONS_FILE, JSON.stringify([], null, 2));
+  try {
+    fs.writeFileSync(REGISTRATIONS_FILE, JSON.stringify([], null, 2));
+  } catch (e) {}
 }
 
 // Initialize settings store if needed
 if (!fs.existsSync(SETTINGS_FILE)) {
-  fs.writeFileSync(
-    SETTINGS_FILE,
-    JSON.stringify(
-      {
-        adminWhatsApp: '919343756202',
-        eventName: 'AWS Student Builder Community Day @ Rungta University',
-        eventDate: 'Coming Soon',
-        venue: 'Rungta University Campus'
-      },
-      null,
-      2
-    )
-  );
+  try {
+    fs.writeFileSync(
+      SETTINGS_FILE,
+      JSON.stringify(
+        {
+          adminWhatsApp: '919343756202',
+          adminUsername: 'admin',
+          adminPassword: 'admin123',
+          eventName: 'AWS Student Builder Community Day @ Rungta University',
+          eventDate: 'Coming Soon',
+          venue: 'Rungta University Campus'
+        },
+        null,
+        2
+      )
+    );
+  } catch (e) {}
 }
 
 // Helpers
@@ -328,12 +352,16 @@ app.post('/api/settings', (req, res) => {
   }
 });
 
-// Start Server
-app.listen(PORT, () => {
-  console.log(`====================================================`);
-  console.log(`🚀 AWS Community Day Server running live!`);
-  console.log(`🌐 Website URL:    http://localhost:${PORT}`);
-  console.log(`📊 Admin Panel:    http://localhost:${PORT}/admin`);
-  console.log(`📥 Excel Export:   http://localhost:${PORT}/api/export-excel`);
-  console.log(`====================================================`);
-});
+// Start Server (Only when not running inside Vercel serverless function)
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`====================================================`);
+    console.log(`🚀 AWS Community Day Server running live!`);
+    console.log(`🌐 Website URL:    http://localhost:${PORT}`);
+    console.log(`📊 Admin Panel:    http://localhost:${PORT}/admin`);
+    console.log(`📥 Excel Export:   http://localhost:${PORT}/api/export-excel`);
+    console.log(`====================================================`);
+  });
+}
+
+module.exports = app;
