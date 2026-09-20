@@ -650,8 +650,7 @@
             <li><a href="#community" class="navbar__link">Community</a></li>
             <li><a href="#venue" class="navbar__link">Venue</a></li>
             <li><a href="#faq" class="navbar__link">FAQ</a></li>
-            <li><a href="#inventors" class="navbar__link">Inventors</a></li>
-          </ul>
+            </ul>
         </nav>
 
         <div class="navbar__actions">
@@ -1365,57 +1364,7 @@
         </div>
       </section>
 
-      <!-- WEBSITE INVENTORS SECTION -->
-      <section class="inventors-section" id="inventors" aria-labelledby="inventors-heading">
-        <div class="inventors-section__container">
-          <div class="inventors-section__header animate-fade-up">
-            <h2 id="inventors-heading" class="inventors-section__title">Website Inventors</h2>
-            <p class="inventors-section__subtitle">The creators behind the development of this platform.</p>
-          </div>
-
-          <div class="inventors-grid">
-            <!-- Aditya Soni Card -->
-            <article class="inventor-card animate-fade-up" aria-label="Profile of Aditya Soni, TECH LEAD">
-              <div class="inventor-card__top">
-                <div class="inventor-card__image-box">
-                  <img alt="Portrait of Aditya Soni" class="inventor-card__image" src="images/aditya-soni.jpg" onerror="this.src='public/images/aditya-soni.jpg'"/>
-                </div>
-                <div class="inventor-card__info">
-                  <div class="inventor-card__header-row">
-                    <h3 class="inventor-card__name">Aditya Soni</h3>
-                    <a href="https://www.linkedin.com/in/aditya-soni-698114370?utm_source=share_via&amp;utm_content=profile&amp;utm_medium=member_android" target="_blank" rel="noopener noreferrer" class="inventor-card__linkedin" aria-label="Aditya Soni's LinkedIn Profile">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect width="4" height="12" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-                    </a>
-                  </div>
-                  <span class="inventor-card__badge">TECH LEAD</span>
-                </div>
-              </div>
-              <div class="inventor-card__divider" aria-hidden="true"></div>
-              <p class="inventor-card__desc">Breaks down complex architectures into actionable steps. Passionate about Solvinng Problems.</p>
-            </article>
-
-            <!-- Aditya Mohan Card -->
-            <article class="inventor-card animate-fade-up" aria-label="Profile of Aditya Mohan, MENTOR">
-              <div class="inventor-card__top">
-                <div class="inventor-card__image-box">
-                  <img alt="Portrait of Aditya Mohan" class="inventor-card__image" src="images/aditya-mohan.jpg" onerror="this.src='public/images/aditya-mohan.jpg'"/>
-                </div>
-                <div class="inventor-card__info">
-                  <div class="inventor-card__header-row">
-                    <h3 class="inventor-card__name">Aditya Mohan</h3>
-                    <a href="https://www.linkedin.com/in/aditya-mohan-cse?utm_source=share_via&amp;utm_content=profile&amp;utm_medium=member_android" target="_blank" rel="noopener noreferrer" class="inventor-card__linkedin" aria-label="Aditya Mohan's LinkedIn Profile">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect width="4" height="12" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-                    </a>
-                  </div>
-                  <span class="inventor-card__badge">MENTOR</span>
-                </div>
-              </div>
-              <div class="inventor-card__divider" aria-hidden="true"></div>
-              <p class="inventor-card__desc">Help Peers To Overcome The Complex Problem And Help to Figure Out Reality Of Tech Field.</p>
-            </article>
-          </div>
-        </div>
-      </section>
+      
 
     </main>
 
@@ -1920,7 +1869,7 @@
     }
 
     // Dynamic Card Spotlight (Godly / Awwwards)
-    document.querySelectorAll('.why__card, .sponsors__card, .testimonials__card, .inventor-card, .venue__card').forEach(card => {
+    document.querySelectorAll('.why__card, .sponsors__card, .testimonials__card, .venue__card').forEach(card => {
       card.classList.add('card-spotlight');
       card.addEventListener('mousemove', e => {
         const rect = card.getBoundingClientRect();
@@ -1932,7 +1881,7 @@
     });
 
     // 3D Tilt Effect on Inventor Cards and Pass
-    document.querySelectorAll('.inventor-card, .tilt-card').forEach(card => {
+    document.querySelectorAll('.tilt-card').forEach(card => {
       card.addEventListener('mousemove', e => {
         const rect = card.getBoundingClientRect();
         const x = e.clientX - rect.left;

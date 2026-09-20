@@ -380,6 +380,23 @@ apiRouter.post('/settings', (req, res) => {
 app.use('/api', apiRouter);
 app.use('/', apiRouter);
 
+// Catch-all frontend handler guarantees index.html / admin.html always loads
+app.get('*', (req, res, next) => {
+  if (req.path.startsWith('/api')) return next();
+  if (req.path === '/admin' || req.path === '/admin.html') {
+    if (htmlBundle.adminHtml) {
+      res.setHeader('Content-Type', 'text/html; charset=utf-8');
+      return res.send(htmlBundle.adminHtml);
+    }
+    return res.sendFile(path.join(__dirname, 'admin.html'));
+  }
+  if (htmlBundle.indexHtml) {
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    return res.send(htmlBundle.indexHtml);
+  }
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+
 // Start Server (Only when run directly, never when required by Vercel serverless function)
 if (require.main === module) {
   app.listen(PORT, () => {
