@@ -3,951 +3,1457 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AWS Student Builder Community Day @ Rungta University</title>
-  
-  <!-- Modern Clean Typography -->
+  <meta name="theme-color" content="#090D16">
+  <title>AWS Student Builder Community Day 2026 | Rungta University, Bhilai</title>
+  <meta name="description" content="BUILD. LEARN. CONNECT. Free developer conference for student cloud builders on 22 August 2026 at Rungta University, Bhilai.">
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Core Stylesheet from Reference Site -->
+  <link rel="stylesheet" href="app.css">
+
   <style>
     :root {
-      --bg-dark: #030712;
-      --card-bg: rgba(15, 23, 42, 0.75);
-      --card-hover: rgba(30, 41, 59, 0.9);
-      --border-color: rgba(56, 189, 248, 0.2);
-      --border-glow: rgba(56, 189, 248, 0.6);
-      --aws-orange: #ff9900;
-      --aws-blue: #38bdf8;
-      --text-main: #ffffff;
-      --text-muted: #94a3b8;
-
-      /* Screenshot Registration Form Blueprint Styles */
-      --blueprint-bg: #0a101d;
-      --blueprint-container: #111827;
-      --blueprint-input: #0f172a;
-      --blueprint-border: #1e293b;
-      --blueprint-btn: #38bdf8;
+      --font-inter: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-jetbrains: 'JetBrains Mono', monospace;
     }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-      -webkit-tap-highlight-color: transparent;
-    }
-
     body {
-      background-color: var(--bg-dark);
-      color: var(--text-main);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+      font-family: var(--font-inter);
+      background-color: var(--color-bg-base, #090D16);
+      color: var(--color-text-primary, #F0F6FC);
       overflow-x: hidden;
-      position: relative;
     }
 
-    /* Ambient Tech Blueprint Grid Overlay */
-    .bg-grid {
+    /* Modal Overlay & Card matching dark theme */
+    .reg-modal-overlay {
       position: fixed;
       inset: 0;
-      background-image: 
-        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-      background-size: 40px 40px;
-      z-index: -1;
-      pointer-events: none;
-    }
-
-    /* Glowing Ambient Background Animation */
-    .glow-aura {
-      position: fixed;
-      top: -10%;
-      left: 30%;
-      width: 500px;
-      height: 500px;
-      background: radial-gradient(circle, rgba(56, 189, 248, 0.15) 0%, rgba(3, 105, 161, 0.05) 50%, transparent 70%);
-      filter: blur(80px);
-      z-index: -1;
-      pointer-events: none;
-      animation: floatGlow 12s ease-in-out infinite alternate;
-    }
-
-    /* Header Navigation */
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.2rem 2rem;
-      background: rgba(3, 7, 18, 0.85);
-      border-bottom: 1px solid var(--border-color);
-      position: sticky;
-      top: 0;
-      z-index: 100;
+      background: rgba(9, 13, 22, 0.88);
       backdrop-filter: blur(12px);
-    }
-
-    .logo {
-      font-weight: 800;
-      font-size: 1.15rem;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
-
-    .logo-badge {
-      background: linear-gradient(135deg, var(--aws-orange), #ff5500);
-      color: #000;
-      font-size: 0.72rem;
-      font-weight: 800;
-      padding: 0.25rem 0.6rem;
-      border-radius: 6px;
-      text-transform: uppercase;
-    }
-
-    .logo-text span {
-      color: var(--aws-blue);
-    }
-
-    /* Hero Section */
-    main.hero {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 4.5rem 1.5rem 3.5rem;
-      max-width: 1000px;
-      margin: 0 auto;
-      width: 100%;
-      text-align: center;
-    }
-
-    .status-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid var(--border-glow);
-      padding: 0.45rem 1.2rem;
-      border-radius: 99px;
-      font-size: 0.82rem;
-      font-weight: 700;
-      color: var(--aws-blue);
-      margin-bottom: 1.8rem;
-    }
-
-    .pulse-dot {
-      width: 8px;
-      height: 8px;
-      background-color: var(--aws-blue);
-      border-radius: 50%;
-      box-shadow: 0 0 8px var(--aws-blue);
-      animation: pulse 2s infinite;
-    }
-
-    h1 {
-      font-size: clamp(2.2rem, 5vw, 3.8rem);
-      font-weight: 900;
-      line-height: 1.15;
-      margin-bottom: 1.2rem;
-      color: #ffffff;
-    }
-
-    h1 .highlight {
-      background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    p.subtitle {
-      color: var(--text-muted);
-      font-size: clamp(1rem, 2vw, 1.2rem);
-      max-width: 620px;
-      margin-bottom: 2.5rem;
-      line-height: 1.6;
-    }
-
-    /* Primary Action Trigger Button */
-    .btn-primary {
-      background: linear-gradient(135deg, #0284c7 0%, #0369a1 50%, #6366f1 100%);
-      color: #fff;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      padding: 1rem 2.5rem;
-      font-size: 1rem;
-      font-weight: 800;
-      border-radius: 12px;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      box-shadow: 0 0 25px rgba(2, 132, 199, 0.5);
-      transition: all 0.25s ease;
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 0 35px rgba(56, 189, 248, 0.7);
-    }
-
-    /* Bento Features Grid */
-    .bento-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.2rem;
-      width: 100%;
-      margin-top: 3.5rem;
-    }
-
-    .bento-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      padding: 1.8rem;
-      border-radius: 16px;
-      text-align: left;
-      cursor: pointer;
-      transition: all 0.25s ease;
-    }
-
-    .bento-card:hover {
-      background: var(--card-hover);
-      border-color: var(--border-glow);
-      transform: translateY(-4px);
-    }
-
-    .card-icon {
-      font-size: 1.4rem;
-      margin-bottom: 1rem;
-    }
-
-    .bento-card h3 {
-      font-size: 1.1rem;
-      font-weight: 800;
-      margin-bottom: 0.4rem;
-      color: var(--text-main);
-      display: flex;
-      justify-content: space-between;
-    }
-
-    .bento-card p {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      line-height: 1.4;
-    }
-
-    /* Modal Overlay */
-    .modal-overlay {
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 10000;
       display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(3, 7, 18, 0.88);
-      z-index: 1000;
-      justify-content: center;
       align-items: center;
-      padding: 1.2rem;
-      backdrop-filter: blur(8px);
+      justify-content: center;
+      padding: 1.5rem;
+      animation: fadeIn 0.25s ease-out forwards;
     }
-
-    .modal-overlay.active {
+    .reg-modal-overlay.active {
       display: flex !important;
     }
-
-    /* REGISTRATION MODAL -> EXACT SCREENSHOT THEME */
-    .blueprint-modal {
-      background: var(--blueprint-container);
-      border: 1px solid var(--blueprint-border);
-      padding: 2rem;
-      border-radius: 12px;
+    .reg-modal-card {
+      background: #0d1322;
+      border: 1px solid var(--color-border-bright, #485468);
+      border-radius: 20px;
+      max-width: 540px;
       width: 100%;
-      max-width: 500px;
       max-height: 90vh;
       overflow-y: auto;
-      position: relative;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
-      animation: modalFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .close-modal {
-      position: absolute;
-      top: 1rem;
-      right: 1.2rem;
-      background: transparent;
-      border: none;
-      color: #94a3b8;
-      font-size: 1.8rem;
-      cursor: pointer;
-    }
-
-    .close-modal:hover {
-      color: #ffffff;
-    }
-
-    .step-header-img {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.8rem;
-      margin-bottom: 0.8rem;
-    }
-
-    .step-icon-img {
-      color: var(--blueprint-btn);
-      font-size: 1.3rem;
-      margin-top: 0.1rem;
-    }
-
-    .blueprint-modal h2 {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: #ffffff;
-    }
-
-    .blueprint-modal p.desc {
-      color: #94a3b8;
-      font-size: 0.88rem;
-      margin-bottom: 1.5rem;
-      line-height: 1.4;
-    }
-
-    /* Form Fields Matching Screenshot */
-    .bp-group {
-      margin-bottom: 1.2rem;
-      text-align: left;
-    }
-
-    .bp-row {
-      display: flex;
-      gap: 0.8rem;
-    }
-
-    .bp-row .bp-group {
-      flex: 1;
-    }
-
-    .bp-group label {
-      display: block;
-      margin-bottom: 0.4rem;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.85rem;
-      color: #ffffff;
-    }
-
-    .bp-group label span.req {
-      color: var(--blueprint-btn);
-    }
-
-    .bp-group input, .bp-group select {
-      width: 100%;
-      padding: 0.85rem 0.9rem;
-      background: var(--blueprint-input);
-      border: 1px solid var(--blueprint-border);
-      color: #ffffff;
-      border-radius: 6px;
-      outline: none;
-      font-size: 0.9rem;
-      transition: border-color 0.2s ease;
-    }
-
-    .bp-group input:focus, .bp-group select:focus {
-      border-color: var(--blueprint-btn);
-    }
-
-    .bp-btn-action {
-      background: var(--blueprint-btn);
-      color: #000;
-      border: none;
-      padding: 0.9rem;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.9rem;
-      font-weight: 700;
-      border-radius: 6px;
-      cursor: pointer;
-      width: 100%;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      transition: background 0.2s ease;
-    }
-
-    .bp-btn-action:hover {
-      background: #7dd3fc;
-    }
-
-    /* Event Highlights Card */
-    .highlights-modal-card {
-      background: #0f172a;
-      border: 1px solid var(--border-glow);
       padding: 2rem;
-      border-radius: 16px;
-      width: 100%;
-      max-width: 480px;
       position: relative;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 30px rgba(0, 102, 204, 0.25);
     }
-
-    .highlights-list {
-      list-style: none;
-      text-align: left;
-      margin: 1.2rem 0;
-    }
-
-    .highlights-list li {
-      padding: 0.8rem 0;
-      border-bottom: 1px solid var(--border-color);
-      color: var(--text-muted);
-      font-size: 0.9rem;
-    }
-
-    .highlights-list li strong {
-      color: var(--aws-blue);
-    }
-
-    .success-box {
-      display: none;
-      text-align: center;
-      padding: 1.5rem 0;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.3; }
-    }
-
-    @keyframes floatGlow {
-      0% { transform: translate(0, 0); }
-      100% { transform: translate(40px, 40px); }
-    }
-
-    @keyframes modalFadeIn {
-      from { opacity: 0; transform: scale(0.95); }
-      to { opacity: 1; transform: scale(1); }
-    }
-
-    .admin-link-btn {
-      background: rgba(15, 23, 42, 0.85);
-      border: 1px solid var(--border-glow);
-      color: var(--aws-blue);
-      text-decoration: none;
-      font-size: 0.82rem;
-      font-weight: 700;
-      padding: 0.45rem 0.95rem;
-      border-radius: 8px;
+    .modal-close-btn {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.25rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-text-secondary, #8B949E);
+      font-size: 1.2rem;
+      cursor: pointer;
       transition: all 0.2s ease;
+    }
+    .modal-close-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+      transform: scale(1.05);
+    }
+    .modal-step-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-jetbrains);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--color-text-accent, #00F0FF);
+      background: rgba(0, 240, 255, 0.1);
+      border: 1px solid rgba(0, 240, 255, 0.25);
+      padding: 0.3rem 0.75rem;
+      border-radius: 999px;
+      margin-bottom: 0.75rem;
+    }
+    .reg-form-group {
+      margin-bottom: 1.1rem;
+      text-align: left;
+    }
+    .reg-form-group label {
+      display: block;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--color-text-secondary, #8B949E);
+      margin-bottom: 0.4rem;
+      font-family: var(--font-jetbrains);
+    }
+    .reg-form-group label span.req {
+      color: #f85149;
+    }
+    .reg-input {
+      width: 100%;
+      background: #070a12;
+      border: 1px solid var(--color-border-medium, #30363D);
+      border-radius: 10px;
+      padding: 0.8rem 1rem;
+      color: #fff;
+      font-size: 0.9375rem;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+    .reg-input:focus {
+      border-color: var(--color-text-accent, #00F0FF);
+      box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+    }
+    .reg-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    @media (max-width: 600px) {
+      .reg-grid-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+    .pass-ticket-card {
+      background: linear-gradient(135deg, rgba(17, 23, 38, 0.95), rgba(9, 13, 22, 0.98));
+      border: 2px solid var(--color-text-accent, #00F0FF);
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-top: 1.25rem;
+      position: relative;
+      box-shadow: 0 0 35px rgba(0, 240, 255, 0.25);
+    }
+    .pass-ticket-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.15);
+      padding-bottom: 1rem;
+      margin-bottom: 1rem;
+    }
+    .ticket-id-tag {
+      font-family: var(--font-jetbrains);
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--color-aws-amber, #FF9900);
+      letter-spacing: 0.05em;
+    }
+    .ticket-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.8rem;
+      text-align: left;
+      font-size: 0.875rem;
+      margin-bottom: 1.2rem;
+    }
+    .ticket-grid-item label {
+      display: block;
+      font-size: 0.72rem;
+      color: var(--color-text-muted, #57606A);
+      text-transform: uppercase;
+      font-family: var(--font-jetbrains);
+    }
+    .ticket-grid-item div {
+      color: #fff;
+      font-weight: 600;
+    }
+    .ticket-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+    .btn-wa-direct {
+      background: #25D366;
+      color: #000;
+      font-weight: 700;
+      padding: 0.9rem 1.25rem;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 4px 18px rgba(37, 211, 102, 0.35);
+    }
+    .btn-wa-direct:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(37, 211, 102, 0.5);
+    }
+    .btn-ticket-secondary {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--color-border-medium, #30363D);
+      color: var(--color-text-primary, #F0F6FC);
+      padding: 0.75rem;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      transition: all 0.2s ease;
+    }
+    .btn-ticket-secondary:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: var(--color-text-secondary, #8B949E);
+    }
+    .admin-nav-pill {
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
-    }
-    .admin-link-btn:hover {
-      background: rgba(56, 189, 248, 0.15);
-      box-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
-      color: #fff;
-    }
-
-    /* Pass Card and WhatsApp elements */
-    .pass-container {
-      display: none;
-      text-align: left;
-      animation: modalFadeIn 0.3s ease;
-    }
-    .pass-card-box {
-      background: #090e1a;
-      border: 1px dashed var(--aws-blue);
-      border-radius: 10px;
-      padding: 1.2rem;
-      margin: 1.2rem 0;
-      position: relative;
-    }
-    .pass-badge {
-      display: inline-block;
-      background: rgba(56, 189, 248, 0.15);
-      border: 1px solid var(--aws-blue);
-      color: var(--aws-blue);
-      font-family: 'JetBrains Mono', monospace;
-      font-weight: 800;
-      font-size: 0.95rem;
-      padding: 0.3rem 0.7rem;
-      border-radius: 6px;
-      margin-bottom: 0.8rem;
-    }
-    .pass-details-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.6rem;
-      font-size: 0.85rem;
-      margin-bottom: 0.6rem;
-    }
-    .pass-detail-item label {
-      font-size: 0.72rem;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      font-family: 'JetBrains Mono', monospace;
-      display: block;
-      margin-bottom: 0.1rem;
-    }
-    .pass-detail-item div {
-      font-weight: 700;
-      color: #fff;
-    }
-    .wa-btn-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.65rem;
-      margin-top: 1.2rem;
-    }
-    .btn-wa-action {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.6rem;
-      padding: 0.85rem;
-      border-radius: 8px;
-      font-weight: 800;
-      font-size: 0.9rem;
+      background: rgba(0, 102, 204, 0.15);
+      border: 1px solid rgba(0, 102, 204, 0.4);
+      color: #38bdf8;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      padding: 0.5rem 0.9rem;
+      border-radius: var(--radius-md);
       text-decoration: none;
-      cursor: pointer;
-      border: none;
       transition: all 0.2s ease;
-      width: 100%;
     }
-    .btn-wa-student {
-      background: linear-gradient(135deg, #25d366, #128c7e);
+    .admin-nav-pill:hover {
+      background: rgba(0, 102, 204, 0.3);
+      border-color: #38bdf8;
       color: #fff;
-      box-shadow: 0 0 15px rgba(37, 211, 102, 0.3);
-    }
-    .btn-wa-student:hover {
-      background: #25d366;
-      box-shadow: 0 0 25px rgba(37, 211, 102, 0.6);
-      transform: translateY(-1px);
-    }
-    @keyframes waPulse {
-      0%, 100% {
-        box-shadow: 0 0 15px rgba(37, 211, 102, 0.4);
-        transform: scale(1);
-      }
-      50% {
-        box-shadow: 0 0 28px rgba(37, 211, 102, 0.85);
-        transform: scale(1.02);
-      }
-    }
-    .btn-wa-admin {
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(56, 189, 248, 0.3);
-      color: var(--aws-blue);
-    }
-    .btn-wa-admin:hover {
-      border-color: var(--aws-blue);
-      background: rgba(56, 189, 248, 0.1);
-    }
-    .btn-copy-pass {
-      background: transparent;
-      border: 1px solid var(--border-color);
-      color: var(--text-muted);
-      font-size: 0.82rem;
-      padding: 0.65rem;
-      border-radius: 6px;
-      cursor: pointer;
-      width: 100%;
-      transition: all 0.2s;
-    }
-    .btn-copy-pass:hover {
-      color: #fff;
-      border-color: var(--aws-blue);
-    }
-
-    footer {
-      text-align: center;
-      padding: 1.5rem;
-      color: var(--text-muted);
-      font-size: 0.8rem;
-      border-top: 1px solid var(--border-color);
     }
   </style>
 </head>
-<body>
+<body class="font-sans antialiased">
 
-  <div class="bg-grid"></div>
-  <div class="glow-aura"></div>
+  <!-- Top Scroll Progress Bar -->
+  <div class="scroll-progress-bar" id="scrollProgressBar" style="transform: scaleX(0);" aria-hidden="true"></div>
 
-  <!-- Header -->
-  <header>
-    <div class="logo">
-      <span class="logo-badge">AWS</span>
-      <span class="logo-text">Student <span>Builder</span></span>
-    </div>
-    <div style="display: flex; gap: 0.8rem; align-items: center;">
-      <a href="admin.html" class="admin-link-btn" title="Open Admin Panel">
-        ⚡ Admin Panel ↗
-      </a>
-    </div>
-  </header>
+  <!-- Page Wrapper -->
+  <div class="page-wrapper">
 
-  <!-- Hero Content -->
-  <main class="hero">
-    <div class="status-badge">
-      <span class="pulse-dot"></span> Official Campus Event
-    </div>
+    <!-- NAVBAR -->
+    <header class="navbar" id="navbar">
+      <div class="container navbar__inner">
+        <a class="navbar__brand" aria-label="AWS Student Builder Community Day Home" href="#">
+          <div class="navbar__logo-badge">
+            <img alt="AWS SBCD Logo" width="28" height="28" style="border-radius:8px;object-fit:cover" src="images/logo.png" onerror="this.src='public/images/logo.png'"/>
+          </div>
+          <div class="navbar__brand-text">
+            <span class="navbar__brand-title">AWS SBCD '26</span>
+            <span class="navbar__brand-tag">BUILD • LEARN • CONNECT</span>
+          </div>
+        </a>
 
-    <h1>AWS Student Builder <br><span class="highlight">Community Day</span></h1>
-    <p class="subtitle">Join us at Rungta University for cloud architecture workshops, hands-on serverless labs, and peer networking.</p>
-    
-    <button class="btn-primary" id="openRegBtn">
-      Register Now <span>→</span>
-    </button>
+        <nav aria-label="Main Navigation">
+          <ul class="navbar__nav">
+            <li><a href="#experience" class="navbar__link">Experience</a></li>
+            <li><a href="#schedule" class="navbar__link">Schedule</a></li>
+            <li><a href="#community" class="navbar__link">Community</a></li>
+            <li><a href="#venue" class="navbar__link">Venue</a></li>
+            <li><a href="#faq" class="navbar__link">FAQ</a></li>
+            <li><a href="#inventors" class="navbar__link">Inventors</a></li>
+          </ul>
+        </nav>
 
-    <!-- Bento Grid -->
-    <div class="bento-grid">
-      <div class="bento-card" id="locationCard">
-        <div class="card-icon">📍</div>
-        <h3>Campus Location <span>↗</span></h3>
-        <p>Rungta University Campus. Tap to open map navigation.</p>
+        <div class="navbar__actions">
+          <a href="admin.html" class="admin-nav-pill" title="Open Admin Dashboard">
+            <span>⚡ Admin Console ↗</span>
+          </a>
+          <button type="button" class="btn btn--primary" id="navRegBtn">
+            <span>Register Free</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+          </button>
+        </div>
       </div>
+    </header>
 
-      <div class="bento-card" id="highlightsCard">
-        <div class="card-icon">💡</div>
-        <h3>Event Highlights <span>↗</span></h3>
-        <p>Cloud workshops, hands-on serverless labs & peer tech networking.</p>
+    <!-- MAIN CONTENT -->
+    <main id="main-content">
+
+      <!-- HERO SECTION -->
+      <section class="hero-section">
+        <div class="cloud-canvas-container">
+          <canvas class="cloud-canvas" id="cloudCanvas" aria-hidden="true"></canvas>
+        </div>
+        <div class="hero-bg-grid" aria-hidden="true"></div>
+        <div class="hero-bg-glow" aria-hidden="true"></div>
+
+        <div class="container hero__content">
+          <div class="hero__badge">
+            <span class="hero__badge-dot"></span>
+            <span>AWS Student Builder Community Day 2026</span>
+          </div>
+
+          <h1 class="display-heading hero__heading">
+            <span class="hero__word hero__word--1">BUILD.</span>
+            <span class="hero__word hero__word--2">LEARN.</span>
+            <span class="hero__word hero__word--3">CONNECT.</span>
+          </h1>
+
+          <p class="hero__subheading">
+            A premium builder experience bringing students, developers and innovators together for one unforgettable day of learning, networking and creation.
+          </p>
+
+          <div class="hero__meta-bar">
+            <div class="hero__meta-pill">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg>
+              <span>22 August 2026</span>
+            </div>
+            <div class="hero__meta-pill">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              <span>9:00 AM – 5:00 PM IST</span>
+            </div>
+            <a href="https://maps.app.goo.gl/J7DvAnneeEWmdWRQ8" target="_blank" class="hero__meta-pill" style="cursor:pointer; text-decoration:none;" title="Open in Google Maps">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+              <span>Rungta University, Bhilai, Chhattisgarh ↗</span>
+            </a>
+            <div class="hero__meta-pill">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+              <span>500+ Attendees</span>
+            </div>
+          </div>
+
+          <div class="hero__actions">
+            <button type="button" class="btn btn--primary btn--lg" id="heroRegBtn">
+              <span>Register Now</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+            </button>
+            <a href="#experience" class="btn btn--outline btn--lg">
+              <span>Explore Event</span>
+            </a>
+          </div>
+
+          <!-- COUNTDOWN TIMER -->
+          <div class="hero__countdown-wrapper">
+            <div class="countdown-container">
+              <span class="countdown__title">✦ COUNTDOWN TO COMMUNITY DAY ✦</span>
+              <div class="countdown__grid">
+                <div class="countdown__card">
+                  <span class="countdown__value" id="cdDays">00</span>
+                  <span class="countdown__label">Days</span>
+                </div>
+                <div class="countdown__card">
+                  <span class="countdown__value" id="cdHours">00</span>
+                  <span class="countdown__label">Hours</span>
+                </div>
+                <div class="countdown__card">
+                  <span class="countdown__value" id="cdMinutes">00</span>
+                  <span class="countdown__label">Minutes</span>
+                </div>
+                <div class="countdown__card">
+                  <span class="countdown__value" id="cdSeconds">00</span>
+                  <span class="countdown__label">Seconds</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- STATS CARDS -->
+          <div class="hero__stats-wrapper">
+            <div class="hero-stats-container">
+              <div class="hero-stats__grid">
+                <div class="hero-stats__card">
+                  <span class="hero-stats__value">500+</span>
+                  <span class="hero-stats__label">Student Builders</span>
+                </div>
+                <div class="hero-stats__card">
+                  <span class="hero-stats__value">8+</span>
+                  <span class="hero-stats__label">Sessions & Workshops</span>
+                </div>
+                <div class="hero-stats__card">
+                  <span class="hero-stats__value">1</span>
+                  <span class="hero-stats__label">Unforgettable Day</span>
+                </div>
+                <div class="hero-stats__card">
+                  <span class="hero-stats__value">∞</span>
+                  <span class="hero-stats__label">Opportunities</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <a href="#about" class="hero__scroll-indicator" aria-label="Scroll to about section">
+            <span>EXPLORE EVENT</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hero__scroll-arrow"><path d="m6 9 6 6 6-6"></path></svg>
+          </a>
+        </div>
+      </section>
+
+      <!-- ABOUT SECTION -->
+      <section id="about" class="about-section">
+        <div class="container">
+          <div class="about__grid">
+            <div class="about__text-col">
+              <span class="about__tag">✦ ABOUT THE EVENT ✦</span>
+              <h2 class="about__title">A Day Built For The Next Generation Of Builders</h2>
+              <p class="about__desc">
+                AWS Student Builder Community Day 2026 is an immersive, student-first cloud engineering conference engineered to inspire, educate, and connect the next wave of tech pioneers at Rungta University, Bhilai.
+              </p>
+              <p class="about__desc" style="font-size:1rem;color:var(--color-text-secondary)">
+                Whether you are writing your first line of serverless code or architecting complex microservices, this one-day conference offers expert keynotes, hands-on workshops, and direct access to industry mentors.
+              </p>
+              <div class="about__highlights">
+                <div class="about__highlight-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="about__highlight-icon"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path></svg>
+                  <span>Cloud Computing</span>
+                </div>
+                <div class="about__highlight-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="about__highlight-icon"><rect x="4" y="4" width="16" height="16" rx="2"></rect><rect x="9" y="9" width="6" height="6"></rect><path d="M15 2v2"></path><path d="M15 20v2"></path><path d="M2 15h2"></path><path d="M2 9h2"></path><path d="M20 15h2"></path><path d="M20 9h2"></path><path d="M9 2v2"></path><path d="M9 20v2"></path></svg>
+                  <span>Artificial Intelligence</span>
+                </div>
+                <div class="about__highlight-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="about__highlight-icon"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" x2="20" y1="19" y2="19"></line></svg>
+                  <span>DevOps & CI/CD</span>
+                </div>
+                <div class="about__highlight-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="about__highlight-icon"><line x1="6" x2="6" y1="3" y2="15"></line><circle cx="18" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><path d="M18 9a9 9 0 0 1-9 9"></path></svg>
+                  <span>Open Source</span>
+                </div>
+                <div class="about__highlight-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="about__highlight-icon"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"></line><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"></line></svg>
+                  <span>Networking</span>
+                </div>
+                <div class="about__highlight-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="about__highlight-icon"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"></path><path d="M9 18h6"></path><path d="M10 22h4"></path></svg>
+                  <span>Innovation</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="about__visual-card">
+              <div class="about__visual-glow"></div>
+              <div class="about__floating-badge hover-lift">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0066CC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path></svg>
+                <span>AWS Serverless Architecture</span>
+              </div>
+              <div class="about__floating-badge about__floating-badge--2 hover-lift">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FF9900" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"></rect><rect x="9" y="9" width="6" height="6"></rect><path d="M15 2v2"></path><path d="M15 20v2"></path><path d="M2 15h2"></path><path d="M2 9h2"></path><path d="M20 15h2"></path><path d="M20 9h2"></path><path d="M9 2v2"></path><path d="M9 20v2"></path></svg>
+                <span>GenAI & Machine Learning</span>
+              </div>
+              <div class="about__floating-badge about__floating-badge--3 hover-lift">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00F0FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" x2="20" y1="19" y2="19"></line></svg>
+                <span>500+ Student Developers</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- EXPERIENCE (WHY) SECTION -->
+      <section id="experience" class="why-section">
+        <div class="container">
+          <div class="why__header">
+            <span class="caption" style="color:var(--color-text-accent)">✦ WHY YOU CANNOT MISS THIS ✦</span>
+            <h2 class="h2">Engineered For Student Builders</h2>
+            <p class="body-md">Everything you need to accelerate your cloud journey in one packed, action-oriented day.</p>
+          </div>
+
+          <div class="why__grid">
+            <div class="why__card">
+              <div class="why__icon-wrapper">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+              </div>
+              <h3 class="why__card-title">Learn</h3>
+              <p class="why__card-desc">Deep-dive technical keynotes and breakout sessions led by cloud experts, mentors, and community leaders.</p>
+            </div>
+
+            <div class="why__card">
+              <div class="why__icon-wrapper">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 16 4-4-4-4"></path><path d="m6 8-4 4 4 4"></path><path d="m14.5 4-5 16"></path></svg>
+              </div>
+              <h3 class="why__card-title">Build</h3>
+              <p class="why__card-desc">Hands-on cloud architecture labs where you write code, deploy serverless functions, and solve real-world problems.</p>
+            </div>
+
+            <div class="why__card">
+              <div class="why__icon-wrapper">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+              </div>
+              <h3 class="why__card-title">Connect</h3>
+              <p class="why__card-desc">Network with 500+ passionate student developers, alumni, and industry mentors from across the region.</p>
+            </div>
+
+            <div class="why__card">
+              <div class="why__icon-wrapper">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path></svg>
+              </div>
+              <h3 class="why__card-title">Innovate</h3>
+              <p class="why__card-desc">Explore cutting-edge GenAI models, cloud DevOps pipelines, and student builder project showcases.</p>
+            </div>
+
+            <div class="why__card">
+              <div class="why__icon-wrapper">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline><polyline points="16 7 22 7 22 13"></polyline></svg>
+              </div>
+              <h3 class="why__card-title">Career Growth</h3>
+              <p class="why__card-desc">Gain industry insights, cloud certification roadmaps, and career mentorship to accelerate your developer journey.</p>
+            </div>
+
+            <div class="why__card">
+              <div class="why__icon-wrapper">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg>
+              </div>
+              <h3 class="why__card-title">Community</h3>
+              <p class="why__card-desc">Join a vibrant open-source student ecosystem that builds, learns, and grows together long after the event ends.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SCHEDULE TIMELINE SECTION -->
+      <section id="schedule" class="timeline-section">
+        <div class="container">
+          <div class="timeline__header">
+            <span class="caption" style="color:var(--color-text-accent)">✦ EVENT AGENDA ✦</span>
+            <h2 class="h2">Event Timeline</h2>
+            <p class="body-md">An action-packed day of keynotes, hands-on labs, networking, and live builder showcases.</p>
+          </div>
+
+          <div class="timeline__container">
+            <div class="timeline__line" aria-hidden="true"></div>
+
+            <div class="timeline__item">
+              <div class="timeline__node">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><polyline points="16 11 18 13 22 9"></polyline></svg>
+              </div>
+              <div class="timeline__content">
+                <div class="timeline__card">
+                  <span class="timeline__time">09:00 AM – 09:45 AM</span>
+                  <h3 class="timeline__title">Registration & Welcome Swag Kit</h3>
+                  <p class="timeline__desc">Check-in at the venue gate, scan your digital QR pass, receive exclusive AWS SBCD swag kits and badge passes.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="timeline__item">
+              <div class="timeline__node">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" x2="12" y1="19" y2="22"></line></svg>
+              </div>
+              <div class="timeline__content">
+                <div class="timeline__card">
+                  <span class="timeline__time">09:45 AM – 11:00 AM</span>
+                  <h3 class="timeline__title">Opening Keynote: Building in the Cloud Era</h3>
+                  <p class="timeline__desc">Welcome address from campus leads and AWS community builders outlining the future of cloud engineering & GenAI.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="timeline__item">
+              <div class="timeline__node">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 16V7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v9m16 0H4m16 0 1.28 2.55a1 1 0 0 1-.9 1.45H3.62a1 1 0 0 1-.9-1.45L4 16"></path></svg>
+              </div>
+              <div class="timeline__content">
+                <div class="timeline__card">
+                  <span class="timeline__time">11:00 AM – 12:30 PM</span>
+                  <h3 class="timeline__title">Cloud Workshop: Hands-on Serverless & GenAI</h3>
+                  <p class="timeline__desc">Interactive technical workshop guiding attendees through deploying live AWS Lambda functions and Bedrock AI endpoints.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="timeline__item">
+              <div class="timeline__node">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+              </div>
+              <div class="timeline__content">
+                <div class="timeline__card">
+                  <span class="timeline__time">12:30 PM – 01:15 PM</span>
+                  <h3 class="timeline__title">Developer Networking & Community Lounge</h3>
+                  <p class="timeline__desc">Connect with fellow student builders, mentors, speaker guests, and local user group leaders in the main atrium.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="timeline__item">
+              <div class="timeline__node">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a4 4 0 1 1 0 8h-1"></path><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"></path><line x1="6" x2="6" y1="2" y2="4"></line><line x1="10" x2="10" y1="2" y2="4"></line><line x1="14" x2="14" y1="2" y2="4"></line></svg>
+              </div>
+              <div class="timeline__content">
+                <div class="timeline__card">
+                  <span class="timeline__time">01:15 PM – 02:15 PM</span>
+                  <h3 class="timeline__title">Lunch & Builder Social</h3>
+                  <p class="timeline__desc">Networking lunch provided for all registered attendees. Informal discussions and project demonstrations.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="timeline__item">
+              <div class="timeline__node">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"></rect><rect x="9" y="9" width="6" height="6"></rect><path d="M15 2v2"></path><path d="M15 20v2"></path><path d="M2 15h2"></path><path d="M2 9h2"></path><path d="M20 15h2"></path><path d="M20 9h2"></path><path d="M9 2v2"></path><path d="M9 20v2"></path></svg>
+              </div>
+              <div class="timeline__content">
+                <div class="timeline__card">
+                  <span class="timeline__time">02:15 PM – 03:45 PM</span>
+                  <h3 class="timeline__title">Hands-on Lab: Deploying Microservices on AWS</h3>
+                  <p class="timeline__desc">Step-by-step lab building resilient containerized backend microservices using AWS ECS, Fargate, and DynamoDB.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="timeline__item">
+              <div class="timeline__node">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"></circle><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path></svg>
+              </div>
+              <div class="timeline__content">
+                <div class="timeline__card">
+                  <span class="timeline__time">03:45 PM – 04:30 PM</span>
+                  <h3 class="timeline__title">Builder Challenge & Project Demos</h3>
+                  <p class="timeline__desc">Fast-paced mini hackathon showcase where student builders pitch their cloud applications live on stage.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="timeline__item">
+              <div class="timeline__node">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" x2="4" y1="22" y2="15"></line></svg>
+              </div>
+              <div class="timeline__content">
+                <div class="timeline__card">
+                  <span class="timeline__time">04:30 PM – 05:00 PM</span>
+                  <h3 class="timeline__title">Closing Ceremony & Swag Giveaway</h3>
+                  <p class="timeline__desc">Closing remarks, recognition of top builder challenge teams, certificate distribution info, and community wrap-up.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- COMMUNITY PHILOSOPHY SECTION -->
+      <section id="community" class="community-section">
+        <div class="container">
+          <div class="community__grid">
+            <div class="community__visual-box">
+              <svg class="community__visual-svg" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="200" cy="150" r="80" stroke="#0066CC" stroke-width="2" stroke-dasharray="4 4"></circle>
+                <circle cx="200" cy="150" r="120" stroke="#00F0FF" stroke-width="1" opacity="0.4"></circle>
+                <circle cx="200" cy="150" r="28" fill="#111726" stroke="#FF9900" stroke-width="2"></circle>
+                <text x="200" y="154" text-anchor="middle" fill="#FF9900" font-size="12" font-family="monospace" font-weight="bold">AWS</text>
+                <g class="animate-fade-in">
+                  <circle cx="120" cy="90" r="18" fill="#111726" stroke="#0066CC" stroke-width="2"></circle>
+                  <text x="120" y="94" text-anchor="middle" fill="#F0F6FC" font-size="10" font-family="monospace">BUILD</text>
+                  <circle cx="280" cy="90" r="18" fill="#111726" stroke="#00F0FF" stroke-width="2"></circle>
+                  <text x="280" y="94" text-anchor="middle" fill="#F0F6FC" font-size="10" font-family="monospace">LEARN</text>
+                  <circle cx="120" cy="210" r="18" fill="#111726" stroke="#00F0FF" stroke-width="2"></circle>
+                  <text x="120" y="214" text-anchor="middle" fill="#F0F6FC" font-size="10" font-family="monospace">SHARE</text>
+                  <circle cx="280" cy="210" r="18" fill="#111726" stroke="#0066CC" stroke-width="2"></circle>
+                  <text x="280" y="214" text-anchor="middle" fill="#F0F6FC" font-size="10" font-family="monospace">GROW</text>
+                </g>
+                <line x1="138" y1="102" x2="182" y2="136" stroke="#0066CC" stroke-width="1.5" opacity="0.6"></line>
+                <line x1="262" y1="102" x2="218" y2="136" stroke="#00F0FF" stroke-width="1.5" opacity="0.6"></line>
+                <line x1="138" y1="198" x2="182" y2="164" stroke="#00F0FF" stroke-width="1.5" opacity="0.6"></line>
+                <line x1="262" y1="198" x2="218" y2="164" stroke="#0066CC" stroke-width="1.5" opacity="0.6"></line>
+              </svg>
+            </div>
+
+            <div class="community__text-box">
+              <span class="caption" style="color:var(--color-text-accent)">✦ COMMUNITY PHILOSOPHY ✦</span>
+              <h2 class="h2">Builders Build The Future.</h2>
+              <p class="body-lg">We believe the most effective way to master cloud engineering is by building real projects alongside a passionate peer network.</p>
+              <div class="community__quote">
+                "Technology is at its best when it brings student builders together to solve real problems through open-source code and cloud innovation."
+              </div>
+              <p class="body-md" style="color:var(--color-text-secondary)">
+                The AWS Student Builder Community is created by students, for students. From university classrooms to global cloud architectures, we empower every builder with tools, guidance, and opportunity.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- VENUE SECTION -->
+      <section id="venue" class="venue-section">
+        <div class="container">
+          <div class="venue__grid">
+            <div>
+              <span class="caption" style="color:var(--color-text-accent)">✦ HOST VENUE ✦</span>
+              <h2 class="h2" style="margin-top:0.5rem;margin-bottom:1rem">Rungta University, Bhilai</h2>
+              <p class="body-lg" style="margin-bottom:1rem">
+                A premier institution for technical education and research innovation in Chhattisgarh, providing state-of-the-art auditoriums, computing labs, and high-speed Wi-Fi infrastructure.
+              </p>
+              <p class="body-md" style="color:var(--color-text-secondary); margin-bottom: 1.5rem;">
+                Located in Bhilai, the educational hub of Chhattisgarh, Rungta University fosters an active developer ecosystem with dedicated student clubs, hackathons, and technology incubators.
+              </p>
+              <a href="https://maps.app.goo.gl/J7DvAnneeEWmdWRQ8" target="_blank" class="btn btn--secondary" style="font-size:0.9rem;">
+                <span>Open Location in Google Maps ↗</span>
+              </a>
+            </div>
+
+            <div class="venue__card">
+              <div class="venue__card-badge">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                <span>Bhilai, Chhattisgarh, India</span>
+              </div>
+              <div>
+                <h3 class="h3" style="color:var(--color-text-primary)">Main Campus Auditorium</h3>
+                <p class="body-sm" style="color:var(--color-text-secondary);margin-top:0.25rem">
+                  Equipped with dual HD projection screens, surround audio, high-density seating for 500+ attendees, and dedicated workshop lab spaces.
+                </p>
+              </div>
+              <div class="venue__stats-row">
+                <div class="venue__stat-item">
+                  <span class="venue__stat-num">500+</span>
+                  <span class="venue__stat-lbl">Seating Capacity</span>
+                </div>
+                <div class="venue__stat-item">
+                  <span class="venue__stat-num">1 Gbps</span>
+                  <span class="venue__stat-lbl">Campus Fiber Network</span>
+                </div>
+                <div class="venue__stat-item">
+                  <span class="venue__stat-num">100%</span>
+                  <span class="venue__stat-lbl">Free Registration</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SPONSORS / ECOSYSTEM PARTNERS SECTION -->
+      <section class="sponsors-section">
+        <div class="container">
+          <div class="sponsors__header">
+            <span class="caption" style="color:var(--color-text-accent)">✦ ECOSYSTEM PARTNERS ✦</span>
+            <h2 class="h3" style="margin-top:0.5rem;color:var(--color-text-secondary)">Supported By Community & Cloud Ecosystem Pioneers</h2>
+          </div>
+          <div class="sponsors__grid">
+            <div class="sponsors__card">
+              <span class="sponsors__logo-text">AWS</span>
+              <span class="sponsors__tier">Title Sponsor</span>
+            </div>
+            <div class="sponsors__card">
+              <span class="sponsors__logo-text">GitHub</span>
+              <span class="sponsors__tier">Community Partner</span>
+            </div>
+            <div class="sponsors__card">
+              <span class="sponsors__logo-text">Microsoft</span>
+              <span class="sponsors__tier">Ecosystem Partner</span>
+            </div>
+            <div class="sponsors__card">
+              <span class="sponsors__logo-text">Google Cloud</span>
+              <span class="sponsors__tier">Tech Sponsor</span>
+            </div>
+            <div class="sponsors__card">
+              <span class="sponsors__logo-text">MongoDB</span>
+              <span class="sponsors__tier">Data Partner</span>
+            </div>
+            <div class="sponsors__card">
+              <span class="sponsors__logo-text">Vercel</span>
+              <span class="sponsors__tier">Deployment Partner</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TESTIMONIALS SECTION -->
+      <section class="testimonials-section">
+        <div class="container">
+          <div class="testimonials__header">
+            <span class="caption" style="color:var(--color-text-accent)">✦ BUILDER STORIES ✦</span>
+            <h2 class="h2">Loved By Student Builders</h2>
+            <p class="body-md">Hear from previous student attendees who accelerated their cloud learning journey.</p>
+          </div>
+
+          <div class="testimonials__grid">
+            <div class="testimonials__card">
+              <div>
+                <div style="display:flex;gap:0.25rem;color:var(--color-aws-amber);margin-bottom:1rem">
+                  ★★★★★
+                </div>
+                <p class="testimonials__text">
+                  "Attending the AWS Student Builder event changed how I think about cloud architecture. The hands-on labs helped me deploy my first production serverless app!"
+                </p>
+              </div>
+              <div class="testimonials__author">
+                <div class="testimonials__avatar">AK</div>
+                <div>
+                  <h4 class="testimonials__name">Aditya Kumar</h4>
+                  <span class="testimonials__role">3rd Year B.Tech CSE • Rungta College</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="testimonials__card">
+              <div>
+                <div style="display:flex;gap:0.25rem;color:var(--color-aws-amber);margin-bottom:1rem">
+                  ★★★★★
+                </div>
+                <p class="testimonials__text">
+                  "The networking opportunities were top-tier. I connected with campus mentors and got guidance on preparing for AWS Certified Cloud Practitioner."
+                </p>
+              </div>
+              <div class="testimonials__author">
+                <div class="testimonials__avatar">SP</div>
+                <div>
+                  <h4 class="testimonials__name">Sneha Patel</h4>
+                  <span class="testimonials__role">4th Year IT • BIT Durg</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="testimonials__card">
+              <div>
+                <div style="display:flex;gap:0.25rem;color:var(--color-aws-amber);margin-bottom:1rem">
+                  ★★★★★
+                </div>
+                <p class="testimonials__text">
+                  "Submitting our project in the builder challenge was an incredible experience. The community energy is unmatched for student developers!"
+                </p>
+              </div>
+              <div class="testimonials__author">
+                <div class="testimonials__avatar">RS</div>
+                <div>
+                  <h4 class="testimonials__name">Rohan Sharma</h4>
+                  <span class="testimonials__role">2nd Year AI & ML • NIT Raipur</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ SECTION -->
+      <section id="faq" class="faq-section">
+        <div class="container">
+          <div class="faq__header">
+            <span class="caption" style="color:var(--color-text-accent)">✦ FREQUENTLY ASKED QUESTIONS ✦</span>
+            <h2 class="h2">Got Questions? We Have Answers.</h2>
+            <p class="body-md">Everything you need to know about AWS Student Builder Community Day 2026.</p>
+          </div>
+
+          <div class="faq__container">
+            <div class="faq__item">
+              <button type="button" class="faq__trigger" aria-expanded="false">
+                <span>Who can attend?</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="faq__icon"><path d="m6 9 6 6 6-6"></path></svg>
+              </button>
+              <div class="faq__content" style="display:none;">
+                Any college or university student, developer, or tech enthusiast can attend. All academic years (1st to 4th year) and all branches are warmly welcomed.
+              </div>
+            </div>
+
+            <div class="faq__item">
+              <button type="button" class="faq__trigger" aria-expanded="false">
+                <span>Is registration free?</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="faq__icon"><path d="m6 9 6 6 6-6"></path></svg>
+              </button>
+              <div class="faq__content" style="display:none;">
+                Yes, 100% free! There are zero registration fees. All keynotes, labs, swag kits, and event access are completely complimentary.
+              </div>
+            </div>
+
+            <div class="faq__item">
+              <button type="button" class="faq__trigger" aria-expanded="false">
+                <span>Do beginners need prior cloud experience?</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="faq__icon"><path d="m6 9 6 6 6-6"></path></svg>
+              </button>
+              <div class="faq__content" style="display:none;">
+                No prior cloud experience is required. Sessions range from foundational cloud engineering to hands-on serverless labs with step-by-step mentor guidance.
+              </div>
+            </div>
+
+            <div class="faq__item">
+              <button type="button" class="faq__trigger" aria-expanded="false">
+                <span>Will certificates be provided?</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="faq__icon"><path d="m6 9 6 6 6-6"></path></svg>
+              </button>
+              <div class="faq__content" style="display:none;">
+                Yes, an official verified Digital Certificate of Attendance will be issued to all participants who check in at the venue.
+              </div>
+            </div>
+
+            <div class="faq__item">
+              <button type="button" class="faq__trigger" aria-expanded="false">
+                <span>How do I register?</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="faq__icon"><path d="m6 9 6 6 6-6"></path></svg>
+              </button>
+              <div class="faq__content" style="display:none;">
+                Click any "Register Now" button, fill in your details (name, email, phone, branch, year), and your pass will be generated instantly and sent to your WhatsApp.
+              </div>
+            </div>
+
+            <div class="faq__item">
+              <button type="button" class="faq__trigger" aria-expanded="false">
+                <span>What should I bring to the venue?</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="faq__icon"><path d="m6 9 6 6 6-6"></path></svg>
+              </button>
+              <div class="faq__content" style="display:none;">
+                Please bring your college student ID card, your digital entry pass on your phone, and your laptop with charger for the hands-on serverless labs.
+              </div>
+            </div>
+
+            <div class="faq__item">
+              <button type="button" class="faq__trigger" aria-expanded="false">
+                <span>Can I cancel or update my registration?</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="faq__icon"><path d="m6 9 6 6 6-6"></path></svg>
+              </button>
+              <div class="faq__content" style="display:none;">
+                Yes, you can contact the organizing team directly via the WhatsApp support link if you need any changes or assistance.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA BANNER SECTION -->
+      <section class="cta-section" id="register-cta">
+        <div class="container">
+          <div class="cta__card">
+            <div class="cta__glow" aria-hidden="true"></div>
+            <div style="display:inline-flex;align-items:center;gap:0.5rem;color:var(--color-aws-amber);font-family:var(--font-jetbrains);font-size:0.875rem">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path><path d="M5 3v4"></path><path d="M19 17v4"></path><path d="M3 5h4"></path><path d="M17 19h4"></path></svg>
+              <span>LIMITED TO 500+ ATTENDEES</span>
+            </div>
+            <h2 class="cta__title">Ready To Build The Future?</h2>
+            <p class="cta__desc">Join 500+ student builders at Rungta University, Bhilai on 22 August 2026. Claim your free digital pass today.</p>
+            <button type="button" class="btn btn--primary btn--lg" id="ctaRegBtn" style="font-size:1.125rem;padding:1rem 2.25rem">
+              <span>Claim Free Pass Now</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- WEBSITE INVENTORS SECTION -->
+      <section class="inventors-section" id="inventors" aria-labelledby="inventors-heading">
+        <div class="inventors-section__container">
+          <div class="inventors-section__header animate-fade-up">
+            <h2 id="inventors-heading" class="inventors-section__title">Website Inventors</h2>
+            <p class="inventors-section__subtitle">The creators behind the development of this platform.</p>
+          </div>
+
+          <div class="inventors-grid">
+            <!-- Aditya Soni Card -->
+            <article class="inventor-card animate-fade-up" aria-label="Profile of Aditya Soni, TECH LEAD">
+              <div class="inventor-card__top">
+                <div class="inventor-card__image-box">
+                  <img alt="Portrait of Aditya Soni" class="inventor-card__image" src="images/aditya-soni.jpg" onerror="this.src='public/images/aditya-soni.jpg'"/>
+                </div>
+                <div class="inventor-card__info">
+                  <div class="inventor-card__header-row">
+                    <h3 class="inventor-card__name">Aditya Soni</h3>
+                    <a href="https://www.linkedin.com/in/aditya-soni-698114370?utm_source=share_via&amp;utm_content=profile&amp;utm_medium=member_android" target="_blank" rel="noopener noreferrer" class="inventor-card__linkedin" aria-label="Aditya Soni's LinkedIn Profile">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect width="4" height="12" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                    </a>
+                  </div>
+                  <span class="inventor-card__badge">TECH LEAD</span>
+                </div>
+              </div>
+              <div class="inventor-card__divider" aria-hidden="true"></div>
+              <p class="inventor-card__desc">Breaks down complex architectures into actionable steps. Passionate about Solvinng Problems.</p>
+            </article>
+
+            <!-- Aditya Mohan Card -->
+            <article class="inventor-card animate-fade-up" aria-label="Profile of Aditya Mohan, MENTOR">
+              <div class="inventor-card__top">
+                <div class="inventor-card__image-box">
+                  <img alt="Portrait of Aditya Mohan" class="inventor-card__image" src="images/aditya-mohan.jpg" onerror="this.src='public/images/aditya-mohan.jpg'"/>
+                </div>
+                <div class="inventor-card__info">
+                  <div class="inventor-card__header-row">
+                    <h3 class="inventor-card__name">Aditya Mohan</h3>
+                    <a href="https://www.linkedin.com/in/aditya-mohan-cse?utm_source=share_via&amp;utm_content=profile&amp;utm_medium=member_android" target="_blank" rel="noopener noreferrer" class="inventor-card__linkedin" aria-label="Aditya Mohan's LinkedIn Profile">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect width="4" height="12" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                    </a>
+                  </div>
+                  <span class="inventor-card__badge">MENTOR</span>
+                </div>
+              </div>
+              <div class="inventor-card__divider" aria-hidden="true"></div>
+              <p class="inventor-card__desc">Help Peers To Overcome The Complex Problem And Help to Figure Out Reality Of Tech Field.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer__grid">
+          <div class="footer__brand-col">
+            <div class="footer__logo">
+              <img alt="AWS SBCD Logo" width="26" height="26" style="border-radius:6px;object-fit:cover" src="images/logo.png" onerror="this.src='public/images/logo.png'"/>
+              <span>AWS SBCD 2026</span>
+            </div>
+            <p class="footer__desc">
+              Building the future of cloud engineering. Join 500+ student builders, developers, and tech pioneers at Rungta University, Bhilai.
+            </p>
+            <div class="footer__socials">
+              <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="footer__social-btn" aria-label="GitHub">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
+              </a>
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="footer__social-btn" aria-label="LinkedIn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect width="4" height="12" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+              </a>
+              <a href="https://x.com" target="_blank" rel="noopener noreferrer" class="footer__social-btn" aria-label="Twitter">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>
+              </a>
+              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="footer__social-btn" aria-label="YouTube">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"></path><path d="m10 15 5-3-5-3z"></path></svg>
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="footer__col-title">Navigation</h4>
+            <ul class="footer__links">
+              <li><a href="#experience" class="footer__link">Experience</a></li>
+              <li><a href="#schedule" class="footer__link">Schedule</a></li>
+              <li><a href="#community" class="footer__link">Community</a></li>
+              <li><a href="#faq" class="footer__link">FAQ</a></li>
+              <li><a href="admin.html" class="footer__link" style="color:var(--color-text-accent)">⚡ Admin Console</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="footer__col-title">Event Info</h4>
+            <ul class="footer__links">
+              <li class="footer__link">📅 22 August 2026</li>
+              <li class="footer__link">📍 Rungta University, Bhilai, CG</li>
+              <li class="footer__link">🎟️ 100% Free</li>
+              <li class="footer__link">👥 500+ Builders</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer__disclaimer">
+          <strong>LEGAL DISCLAIMER:</strong> This is a community-driven initiative organized by AWS Student Builders at Rungta University.
+        </div>
+
+        <div class="footer__bottom" style="flex-direction:column;gap:1rem;align-items:center">
+          <div style="display:flex;width:100%;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;padding-top:0.75rem">
+            <span>© 2026 AWS Student Builder Community Day • Rungta University. All rights reserved.</span>
+            <button type="button" class="footer__social-btn" id="backToTopBtn" style="width:auto;padding:0 0.875rem;gap:0.5rem" aria-label="Scroll back to top">
+              <span>Back to Top</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 7-7 7 7"></path><path d="M12 19V5"></path></svg>
+            </button>
+          </div>
+        </div>
       </div>
+    </footer>
 
-      <div class="bento-card" id="entryCard">
-        <div class="card-icon">🎟️</div>
-        <h3>Free Student Pass <span>↗</span></h3>
-        <p>100% free pass for all university students. Click to reserve your seat.</p>
-      </div>
-    </div>
-  </main>
+  </div>
 
-  <!-- REGISTRATION MODAL (MATCHING SCREENSHOT) -->
-  <div class="modal-overlay" id="regModal">
-    <div class="blueprint-modal">
-      <button class="close-modal" id="closeRegBtn">&times;</button>
+  <!-- REGISTRATION MODAL (HIGH FIDELITY) -->
+  <div class="reg-modal-overlay" id="regModal">
+    <div class="reg-modal-card">
+      <button class="modal-close-btn" id="closeModalBtn" aria-label="Close modal">&times;</button>
       
-      <div class="step-header-img">
-        <div class="step-icon-img">⬡</div>
-        <div>
-          <h2>Step 1: Student Details</h2>
-          <p class="desc">Fill in your official university details to reserve your seat for AWS Community Day.</p>
-        </div>
+      <div id="formView">
+        <span class="modal-step-badge">🎟️ OFFICIAL STUDENT REGISTRATION</span>
+        <h2 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 0.4rem;">Claim Your Free Pass</h2>
+        <p style="color: var(--color-text-secondary); font-size: 0.875rem; margin-bottom: 1.5rem;">
+          Fill your official student details to reserve your seat at Rungta University, Bhilai on 22 August 2026.
+        </p>
+
+        <form id="studentRegistrationForm">
+          <div class="reg-form-group">
+            <label for="regName">FULL NAME <span class="req">*</span></label>
+            <input type="text" id="regName" class="reg-input" placeholder="e.g. Rahul Sharma" required autofocus>
+          </div>
+
+          <div class="reg-grid-2">
+            <div class="reg-form-group">
+              <label for="regEmail">EMAIL ADDRESS <span class="req">*</span></label>
+              <input type="email" id="regEmail" class="reg-input" placeholder="student@rungta.ac.in" required>
+            </div>
+            <div class="reg-form-group">
+              <label for="regPhone">PHONE NUMBER <span class="req">*</span></label>
+              <input type="tel" id="regPhone" pattern="[0-9]{10}" class="reg-input" placeholder="10-digit mobile" required>
+            </div>
+          </div>
+
+          <div class="reg-grid-2">
+            <div class="reg-form-group">
+              <label for="regBranch">BRANCH <span class="req">*</span></label>
+              <input type="text" id="regBranch" class="reg-input" placeholder="e.g. CSE, IT, AIML" required>
+            </div>
+            <div class="reg-form-group">
+              <label for="regYear">YEAR & SECTION <span class="req">*</span></label>
+              <input type="text" id="regYear" class="reg-input" placeholder="e.g. 3rd Year / Sec A" required>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn--primary" id="submitRegBtn" style="width:100%; justify-content:center; padding:0.9rem; font-size:1rem; margin-top:0.5rem;">
+            <span>Generate Entry Pass & Send to WhatsApp &rarr;</span>
+          </button>
+        </form>
       </div>
 
-      <form id="registrationForm">
-        <div class="bp-group">
-          <label for="name">Full Name <span class="req">*</span></label>
-          <input type="text" id="name" required placeholder="Enter your full name">
-        </div>
-        
-        <div class="bp-group">
-          <label for="email">Email Address <span class="req">*</span></label>
-          <input type="email" id="email" required placeholder="student@rungta.ac.in">
-        </div>
+      <!-- CONFIRMED PASS VIEW -->
+      <div id="passSuccessView" style="display:none; text-align:center;">
+        <span class="modal-step-badge" style="background:rgba(35,134,54,0.15); border-color:#238636; color:#3fb950;">
+          ✅ REGISTRATION CONFIRMED
+        </span>
+        <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 0.25rem;">You're Ready to Build!</h2>
+        <p style="color: var(--color-text-secondary); font-size: 0.85rem;">
+          Your official digital pass has been generated. Details sent to WhatsApp!
+        </p>
 
-        <div class="bp-group">
-          <label for="phone">Mobile Number <span class="req">*</span></label>
-          <input type="tel" id="phone" pattern="[0-9]{10}" required placeholder="10-digit Mobile Number">
-        </div>
-
-        <div class="bp-group">
-          <label for="branch">Select Your Branch <span class="req">*</span></label>
-          <select id="branch" required>
-            <option value="">Select branch from dropdown</option>
-            <option value="CSE">CSE (Computer Science)</option>
-            <option value="IT">Information Technology</option>
-            <option value="AI_DS">AI & Data Science</option>
-            <option value="ECE">ECE</option>
-            <option value="EEE">EEE / Electrical</option>
-            <option value="MECH">Mechanical</option>
-            <option value="CIVIL">Civil</option>
-            <option value="OTHER">Other</option>
-          </select>
-        </div>
-
-        <div class="bp-row">
-          <div class="bp-group">
-            <label for="year">Year <span class="req">*</span></label>
-            <select id="year" required>
-              <option value="">Select</option>
-              <option value="1">1st Year</option>
-              <option value="2">2nd Year</option>
-              <option value="3">3rd Year</option>
-              <option value="4">4th Year</option>
-            </select>
+        <div class="pass-ticket-card">
+          <div class="pass-ticket-header">
+            <div>
+              <span style="font-size:0.7rem; color:var(--color-text-muted); display:block; font-family:var(--font-jetbrains);">PASS IDENTIFIER</span>
+              <span class="ticket-id-tag" id="ticketPassId">#AWS-RU-0000</span>
+            </div>
+            <span style="font-family:var(--font-jetbrains); font-size:0.75rem; color:#00F0FF; font-weight:700; background:rgba(0,240,255,0.1); padding:0.25rem 0.6rem; border-radius:4px; border:1px solid rgba(0,240,255,0.3);">CONFIRMED</span>
           </div>
 
-          <div class="bp-group">
-            <label for="section">Section <span class="req">*</span></label>
-            <input type="text" id="section" required placeholder="e.g. A, B, C">
-          </div>
-        </div>
-
-        <button type="submit" class="bp-btn-action" style="margin-top: 0.5rem;">
-          CONFIRM REGISTRATION &rarr;
-        </button>
-      </form>
-
-      <!-- Digital Pass & WhatsApp Delivery -->
-      <div class="pass-container" id="passContainer">
-        <div style="text-align: center; margin-bottom: 0.8rem;">
-          <div style="font-size: 2.2rem; margin-bottom: 0.2rem;">🎉</div>
-          <h2 style="font-size: 1.3rem; color: #fff;">Registration Confirmed!</h2>
-          <p style="color: #94a3b8; font-size: 0.82rem;">Your official student entry pass has been generated.</p>
-        </div>
-
-        <div class="pass-card-box">
-          <div style="display: flex; justify-content: space-between; align-items: center;">
-            <span class="pass-badge" id="displayPassId">#AWS-RU-0000</span>
-            <span style="font-size: 0.72rem; color: #38bdf8; font-family: 'JetBrains Mono', monospace;">CONFIRMED</span>
-          </div>
-          <div class="pass-details-grid">
-            <div class="pass-detail-item">
-              <label>Student</label>
-              <div id="displayName">---</div>
+          <div class="ticket-grid">
+            <div class="ticket-grid-item">
+              <label>ATTENDEE</label>
+              <div id="ticketName">---</div>
             </div>
-            <div class="pass-detail-item">
-              <label>Branch</label>
-              <div id="displayBranch">---</div>
+            <div class="ticket-grid-item">
+              <label>BRANCH</label>
+              <div id="ticketBranch">---</div>
             </div>
-            <div class="pass-detail-item">
-              <label>Year & Sec</label>
-              <div id="displayYearSec">---</div>
+            <div class="ticket-grid-item">
+              <label>YEAR / SEC</label>
+              <div id="ticketYear">---</div>
             </div>
-            <div class="pass-detail-item">
-              <label>Mobile</label>
-              <div id="displayPhone">---</div>
+            <div class="ticket-grid-item">
+              <label>PHONE</label>
+              <div id="ticketPhone">---</div>
             </div>
           </div>
-          <div style="border-top: 1px dashed rgba(255,255,255,0.1); padding-top: 0.6rem; font-size: 0.78rem; color: var(--text-muted);">
-            📍 Venue: Rungta University Campus
+
+          <div style="font-size:0.78rem; color:var(--color-text-muted); border-top:1px dashed rgba(255,255,255,0.1); padding-top:0.6rem; text-align:left;">
+            📍 Rungta University Campus Auditorium, Bhilai • 22 August 2026
           </div>
         </div>
 
-        <!-- WhatsApp Action Buttons -->
-        <div class="wa-btn-group">
-          <a href="#" target="_blank" class="btn-wa-action btn-wa-student" id="waAdminDirectLink" style="font-size: 0.95rem;">
-            <span>💬</span> Open in WhatsApp &rarr;
+        <div class="ticket-actions">
+          <a href="#" target="_blank" class="btn-wa-direct" id="openWhatsAppBtn">
+            <span>💬</span> Open Details in WhatsApp
           </a>
 
-          <button type="button" class="btn-copy-pass" id="copyPassBtn">
-            📋 Copy Pass Details to Clipboard
+          <button type="button" class="btn-ticket-secondary" id="copyPassTextBtn">
+            <span>📋 Copy Pass Information to Clipboard</span>
           </button>
-          
-          <button type="button" class="btn-copy-pass" id="registerAnotherBtn" style="border-color: transparent;">
-            &larr; Register Another Student
+
+          <button type="button" class="btn-ticket-secondary" id="registerAnotherStudentBtn" style="border-color:transparent;">
+            <span>&larr; Register Another Student</span>
           </button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- HIGHLIGHTS MODAL -->
-  <div class="modal-overlay" id="highlightsModal">
-    <div class="highlights-modal-card">
-      <button class="close-modal" id="closeHighlightsBtn">&times;</button>
-      <h2 style="font-size: 1.3rem; font-weight: 800; color: var(--aws-blue);">What to Expect</h2>
-      
-      <ul class="highlights-list">
-        <li><strong>Cloud Fundamentals:</strong> Core AWS cloud architecture and scalable infrastructure.</li>
-        <li><strong>Hands-on Labs:</strong> Deploy real applications live on AWS Serverless.</li>
-        <li><strong>Generative AI:</strong> Learn how to build intelligent apps with AWS AI services.</li>
-        <li><strong>Community Networking:</strong> Connect with cloud mentors and student developers.</li>
-      </ul>
-
-      <button class="btn-primary" id="modalRegBtn" style="width: 100%; justify-content: center; margin-top: 0.5rem;">
-        Get Registration Pass
-      </button>
-    </div>
-  </div>
-
-  <!-- Footer -->
-  <footer>
-    &copy; AWS Student Builder Group — Rungta University Chapter &bull; <a href="admin.html" style="color: var(--aws-blue); text-decoration: none; font-weight: 600;">Admin Console</a>
-  </footer>
-
+  <!-- CLIENT-SIDE INTERACTIVITY SCRIPTS -->
   <script>
-    const TARGET_ADMIN_WHATSAPP = '919343756202';
+    const ADMIN_PHONE = '919343756202';
 
-    // Document Elements
-    const regModal = document.getElementById('regModal');
-    const highlightsModal = document.getElementById('highlightsModal');
-    const registrationForm = document.getElementById('registrationForm');
-    const stepHeader = document.querySelector('.step-header-img');
-    const passContainer = document.getElementById('passContainer');
-    const displayPassId = document.getElementById('displayPassId');
-    const displayName = document.getElementById('displayName');
-    const displayBranch = document.getElementById('displayBranch');
-    const displayYearSec = document.getElementById('displayYearSec');
-    const displayPhone = document.getElementById('displayPhone');
-    const waAdminDirectLink = document.getElementById('waAdminDirectLink');
-    const copyPassBtn = document.getElementById('copyPassBtn');
-    const registerAnotherBtn = document.getElementById('registerAnotherBtn');
+    // 1. Scroll Progress & Sticky Navbar
+    window.addEventListener('scroll', () => {
+      const winScroll = document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = height > 0 ? (winScroll / height) : 0;
+      document.getElementById('scrollProgressBar').style.transform = `scaleX(${scrolled})`;
 
-    let currentWhatsAppText = '';
-
-    // Helper functions
-    function openModal(modal) {
-      if (modal) modal.classList.add('active');
-    }
-
-    function closeModal(modal) {
-      if (modal) {
-        modal.classList.remove('active');
-        if (modal === regModal) {
-          resetRegistrationModal();
-        }
+      const nav = document.getElementById('navbar');
+      if (winScroll > 40) {
+        nav.classList.add('navbar--scrolled');
+      } else {
+        nav.classList.remove('navbar--scrolled');
       }
+    });
+
+    // 2. Countdown Timer (22 August 2026)
+    function initCountdown() {
+      const targetDate = new Date('2026-08-22T09:00:00+05:30').getTime();
+      function update() {
+        const now = new Date().getTime();
+        const diff = targetDate - now;
+        if (diff <= 0) {
+          document.getElementById('cdDays').textContent = '00';
+          document.getElementById('cdHours').textContent = '00';
+          document.getElementById('cdMinutes').textContent = '00';
+          document.getElementById('cdSeconds').textContent = '00';
+          return;
+        }
+        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+        document.getElementById('cdDays').textContent = String(d).padStart(2, '0');
+        document.getElementById('cdHours').textContent = String(h).padStart(2, '0');
+        document.getElementById('cdMinutes').textContent = String(m).padStart(2, '0');
+        document.getElementById('cdSeconds').textContent = String(s).padStart(2, '0');
+      }
+      update();
+      setInterval(update, 1000);
     }
+    initCountdown();
 
-    function resetRegistrationModal() {
-      passContainer.style.display = 'none';
-      if (stepHeader) stepHeader.style.display = 'flex';
-      registrationForm.style.display = 'block';
-      registrationForm.reset();
-    }
+    // 3. Interactive Constellation Canvas
+    const canvas = document.getElementById('cloudCanvas');
+    if (canvas) {
+      const ctx = canvas.getContext('2d');
+      let width = canvas.width = canvas.offsetWidth;
+      let height = canvas.height = canvas.offsetHeight;
 
-    // Button Click Handlers
-    document.getElementById('openRegBtn').addEventListener('click', function() { openModal(regModal); });
-    document.getElementById('entryCard').addEventListener('click', function() { openModal(regModal); });
-    document.getElementById('highlightsCard').addEventListener('click', function() { openModal(highlightsModal); });
+      window.addEventListener('resize', () => {
+        width = canvas.width = canvas.offsetWidth;
+        height = canvas.height = canvas.offsetHeight;
+      });
 
-    document.getElementById('locationCard').addEventListener('click', function() {
-      window.open("https://maps.app.goo.gl/J7DvAnneeEWmdWRQ8", "_blank");
-    });
+      const nodes = [];
+      const labels = ['STUDENT', 'CODE', 'CLOUD', 'COMMUNITY', 'INNOVATION'];
+      const totalNodes = 32;
 
-    document.getElementById('closeRegBtn').addEventListener('click', function() { closeModal(regModal); });
-    document.getElementById('closeHighlightsBtn').addEventListener('click', function() { closeModal(highlightsModal); });
-
-    document.getElementById('modalRegBtn').addEventListener('click', function() {
-      closeModal(highlightsModal);
-      openModal(regModal);
-    });
-
-    // Close on backdrop overlay click
-    window.addEventListener('click', function(e) {
-      if (e.target === regModal) closeModal(regModal);
-      if (e.target === highlightsModal) closeModal(highlightsModal);
-    });
-
-    // Copy Pass Details
-    copyPassBtn.addEventListener('click', function() {
-      if (navigator.clipboard && currentWhatsAppText) {
-        navigator.clipboard.writeText(currentWhatsAppText).then(() => {
-          copyPassBtn.textContent = '✅ Copied to Clipboard!';
-          setTimeout(() => {
-            copyPassBtn.textContent = '📋 Copy Pass Details to Clipboard';
-          }, 2500);
+      for (let i = 0; i < totalNodes; i++) {
+        nodes.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          vx: (Math.random() - 0.5) * 0.4,
+          vy: (Math.random() - 0.5) * 0.4,
+          radius: Math.random() * 2.5 + 1.5,
+          color: i % 3 === 0 ? '#00F0FF' : (i % 3 === 1 ? '#0066CC' : '#FF9900'),
+          label: i < labels.length ? labels[i] : null
         });
       }
+
+      function drawConstellation() {
+        ctx.clearRect(0, 0, width, height);
+
+        // Draw connections
+        for (let i = 0; i < nodes.length; i++) {
+          for (let j = i + 1; j < nodes.length; j++) {
+            const dx = nodes[i].x - nodes[j].x;
+            const dy = nodes[i].y - nodes[j].y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            if (dist < 140) {
+              ctx.beginPath();
+              ctx.moveTo(nodes[i].x, nodes[i].y);
+              ctx.lineTo(nodes[j].x, nodes[j].y);
+              ctx.strokeStyle = `rgba(0, 102, 204, ${0.2 * (1 - dist / 140)})`;
+              ctx.lineWidth = 0.8;
+              ctx.stroke();
+            }
+          }
+        }
+
+        // Draw nodes
+        nodes.forEach(node => {
+          node.x += node.vx;
+          node.y += node.vy;
+
+          if (node.x < 0 || node.x > width) node.vx *= -1;
+          if (node.y < 0 || node.y > height) node.vy *= -1;
+
+          ctx.beginPath();
+          ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+          ctx.fillStyle = node.color;
+          ctx.shadowBlur = 8;
+          ctx.shadowColor = node.color;
+          ctx.fill();
+          ctx.shadowBlur = 0;
+
+          if (node.label) {
+            ctx.font = '10px JetBrains Mono, monospace';
+            ctx.fillStyle = 'rgba(240, 246, 252, 0.65)';
+            ctx.fillText(node.label, node.x + 8, node.y + 3);
+          }
+        });
+
+        requestAnimationFrame(drawConstellation);
+      }
+      drawConstellation();
+    }
+
+    // 4. FAQ Accordion
+    document.querySelectorAll('.faq__trigger').forEach(trigger => {
+      trigger.addEventListener('click', () => {
+        const item = trigger.closest('.faq__item');
+        const content = item.querySelector('.faq__content');
+        const isOpen = item.classList.contains('faq__item--open');
+
+        // Close other items
+        document.querySelectorAll('.faq__item').forEach(other => {
+          other.classList.remove('faq__item--open');
+          const oc = other.querySelector('.faq__content');
+          if (oc) oc.style.display = 'none';
+        });
+
+        if (!isOpen) {
+          item.classList.add('faq__item--open');
+          content.style.display = 'block';
+        }
+      });
     });
 
-    registerAnotherBtn.addEventListener('click', resetRegistrationModal);
+    // 5. Registration Modal Management
+    const regModal = document.getElementById('regModal');
+    const formView = document.getElementById('formView');
+    const passSuccessView = document.getElementById('passSuccessView');
+    const regForm = document.getElementById('studentRegistrationForm');
+    let lastGeneratedWhatsAppText = '';
 
-    // Handle Form Submit
-    registrationForm.addEventListener('submit', async function(e) {
+    function openRegistrationModal() {
+      formView.style.display = 'block';
+      passSuccessView.style.display = 'none';
+      regModal.classList.add('active');
+    }
+
+    function closeRegistrationModal() {
+      regModal.classList.remove('active');
+    }
+
+    document.getElementById('navRegBtn').addEventListener('click', openRegistrationModal);
+    document.getElementById('heroRegBtn').addEventListener('click', openRegistrationModal);
+    document.getElementById('ctaRegBtn').addEventListener('click', openRegistrationModal);
+    document.getElementById('closeModalBtn').addEventListener('click', closeRegistrationModal);
+    
+    window.addEventListener('click', (e) => {
+      if (e.target === regModal) closeRegistrationModal();
+    });
+
+    document.getElementById('registerAnotherStudentBtn').addEventListener('click', () => {
+      regForm.reset();
+      formView.style.display = 'block';
+      passSuccessView.style.display = 'none';
+    });
+
+    // 6. Form Submission & Ticket Generation
+    regForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-
-      const submitBtn = registrationForm.querySelector('button[type="submit"]');
-      const originalBtnText = submitBtn.innerHTML;
+      const submitBtn = document.getElementById('submitRegBtn');
+      const originalText = submitBtn.innerHTML;
       submitBtn.disabled = true;
-      submitBtn.innerHTML = 'SENDING TO WHATSAPP... ⏳';
+      submitBtn.innerHTML = 'GENERATING PASS... ⏳';
 
       const studentData = {
-        name: document.getElementById('name').value.trim(),
-        email: document.getElementById('email').value.trim(),
-        phone: document.getElementById('phone').value.trim(),
-        branch: document.getElementById('branch').value.trim(),
-        year: document.getElementById('year').value.trim(),
-        section: document.getElementById('section').value.trim()
+        name: document.getElementById('regName').value.trim(),
+        email: document.getElementById('regEmail').value.trim(),
+        phone: document.getElementById('regPhone').value.trim(),
+        branch: document.getElementById('regBranch').value.trim(),
+        year: document.getElementById('regYear').value.trim(),
+        section: 'A'
       };
 
       try {
-        const response = await fetch('/api/register', {
+        const res = await fetch('/api/register', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(studentData)
         });
 
-        let data;
-        if (response.ok) {
-          data = await response.json();
-          if (data && data.registration) {
-            const localList = JSON.parse(localStorage.getItem('aws_registrations_cache') || '[]');
-            localList.unshift(data.registration);
-            localStorage.setItem('aws_registrations_cache', JSON.stringify(localList));
+        let result;
+        if (res.ok) {
+          result = await res.json();
+          // Store in browser local storage
+          if (result && result.registration) {
+            const list = JSON.parse(localStorage.getItem('aws_registrations_cache') || '[]');
+            list.unshift(result.registration);
+            localStorage.setItem('aws_registrations_cache', JSON.stringify(list));
           }
         } else {
-          throw new Error('API request failed');
+          throw new Error('Fallback to client generation');
         }
-
-        renderSuccessPass(data);
+        showSuccessPass(result);
       } catch (err) {
-        console.warn('Backend server unavailable, processing client-side:', err);
-        const randomId = 'AWS-RU-' + Math.floor(1000 + Math.random() * 9000);
+        // High fidelity client fallback
+        const randomSuffix = Math.floor(1000 + Math.random() * 9000);
+        const passId = `AWS-RU-${randomSuffix}`;
         const now = new Date();
         const formattedDate = now.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', dateStyle: 'medium', timeStyle: 'short' });
         
         const fallbackRecord = {
-          id: randomId,
+          id: passId,
           ...studentData,
           registeredAt: now.toISOString(),
           formattedDate: formattedDate
         };
 
-        // Cache in browser localStorage
-        const localList = JSON.parse(localStorage.getItem('aws_registrations_cache') || '[]');
-        localList.unshift(fallbackRecord);
-        localStorage.setItem('aws_registrations_cache', JSON.stringify(localList));
+        const list = JSON.parse(localStorage.getItem('aws_registrations_cache') || '[]');
+        list.unshift(fallbackRecord);
+        localStorage.setItem('aws_registrations_cache', JSON.stringify(list));
 
-        const cleanPhone = studentData.phone.replace(/[^0-9]/g, '');
-        const phoneWithCountry = cleanPhone.length === 10 ? `91${cleanPhone}` : cleanPhone;
-        
-        const fallbackText = `🚀 *NEW REGISTRATION — AWS COMMUNITY DAY* 🚀\n` +
+        const waText = `🚀 *NEW REGISTRATION — AWS COMMUNITY DAY* 🚀\n` +
           `━━━━━━━━━━━━━━━━━━━━\n` +
-          `🎟️ *Pass ID*: #${randomId}\n` +
+          `🎟️ *Pass ID*: #${passId}\n` +
           `👤 *Student Name*: ${studentData.name}\n` +
           `📱 *Mobile*: ${studentData.phone}\n` +
           `📧 *Email*: ${studentData.email}\n` +
           `🎓 *Branch*: ${studentData.branch}\n` +
-          `📅 *Year*: ${studentData.year} Year | *Section*: ${studentData.section}\n` +
-          `🏛️ *Venue*: Rungta University Campus\n` +
+          `📅 *Year / Sec*: ${studentData.year}\n` +
+          `🏛️ *Venue*: Rungta University Campus, Bhilai\n` +
           `⏰ *Registered On*: ${formattedDate}\n` +
           `━━━━━━━━━━━━━━━━━━━━\n` +
           `✅ *Status*: Confirmed Student Pass`;
 
-        renderSuccessPass({
+        showSuccessPass({
           registration: fallbackRecord,
-          whatsappText: fallbackText,
-          studentWhatsAppUrl: `https://wa.me/${phoneWithCountry}?text=${encodeURIComponent(fallbackText)}`,
-          adminWhatsAppUrl: `https://wa.me/${TARGET_ADMIN_WHATSAPP}?text=${encodeURIComponent(fallbackText)}`
+          whatsappText: waText,
+          adminWhatsAppUrl: `https://wa.me/${ADMIN_PHONE}?text=${encodeURIComponent(waText)}`
         });
       } finally {
         submitBtn.disabled = false;
-        submitBtn.innerHTML = originalBtnText;
+        submitBtn.innerHTML = originalText;
       }
     });
 
-    function renderSuccessPass(data) {
+    function showSuccessPass(data) {
       const reg = data.registration;
-      currentWhatsAppText = data.whatsappText;
+      lastGeneratedWhatsAppText = data.whatsappText;
 
-      displayPassId.textContent = `#${reg.id}`;
-      displayName.textContent = reg.name;
-      displayBranch.textContent = reg.branch;
-      displayYearSec.textContent = `${reg.year} Yr • Sec ${reg.section}`;
-      displayPhone.textContent = reg.phone;
+      document.getElementById('ticketPassId').textContent = `#${reg.id}`;
+      document.getElementById('ticketName').textContent = reg.name;
+      document.getElementById('ticketBranch').textContent = reg.branch;
+      document.getElementById('ticketYear').textContent = reg.year;
+      document.getElementById('ticketPhone').textContent = reg.phone;
 
-      // WhatsApp Link (Target: 9343756202)
-      const adminWaUrl = data.adminWhatsAppUrl || `https://wa.me/${TARGET_ADMIN_WHATSAPP}?text=${encodeURIComponent(currentWhatsAppText)}`;
-      waAdminDirectLink.href = adminWaUrl;
+      const waUrl = data.adminWhatsAppUrl || `https://wa.me/${ADMIN_PHONE}?text=${encodeURIComponent(lastGeneratedWhatsAppText)}`;
+      document.getElementById('openWhatsAppBtn').href = waUrl;
 
-      if (stepHeader) stepHeader.style.display = 'none';
-      registrationForm.style.display = 'none';
-      passContainer.style.display = 'block';
+      formView.style.display = 'none';
+      passSuccessView.style.display = 'block';
 
-      // Automatically launch WhatsApp
+      // Auto launch WhatsApp
       try {
-        window.open(adminWaUrl, '_blank');
-      } catch (e) {
-        console.log('Popup blocked, available via button');
-      }
+        window.open(waUrl, '_blank');
+      } catch (e) {}
     }
+
+    // Copy Pass Details button
+    document.getElementById('copyPassTextBtn').addEventListener('click', () => {
+      if (lastGeneratedWhatsAppText && navigator.clipboard) {
+        navigator.clipboard.writeText(lastGeneratedWhatsAppText).then(() => {
+          const btn = document.getElementById('copyPassTextBtn');
+          btn.innerHTML = '<span>✅ Pass Details Copied!</span>';
+          setTimeout(() => {
+            btn.innerHTML = '<span>📋 Copy Pass Information to Clipboard</span>';
+          }, 2500);
+        });
+      }
+    });
+
+    // Back to top button
+    document.getElementById('backToTopBtn').addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
   </script>
 </body>
 </html>
-
