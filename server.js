@@ -112,8 +112,11 @@ app.get('/admin', (req, res) => {
   res.sendFile(path.join(__dirname, 'admin.html'));
 });
 
+// API Router
+const apiRouter = express.Router();
+
 // API: Submit Registration
-app.post('/api/register', (req, res) => {
+apiRouter.post('/register', (req, res) => {
   try {
     const { name, email, phone, branch, year, section } = req.body;
 
@@ -201,7 +204,7 @@ app.post('/api/register', (req, res) => {
 });
 
 // API: Get All Registrations & Stats
-app.get('/api/registrations', (req, res) => {
+apiRouter.get('/registrations', (req, res) => {
   try {
     const list = getRegistrations();
     const settings = getSettings();
@@ -236,7 +239,7 @@ app.get('/api/registrations', (req, res) => {
 });
 
 // API: Delete Registration
-app.delete('/api/registrations/:id', (req, res) => {
+apiRouter.delete('/registrations/:id', (req, res) => {
   try {
     const { id } = req.params;
     let list = getRegistrations();
@@ -255,7 +258,7 @@ app.delete('/api/registrations/:id', (req, res) => {
 });
 
 // API: Export to Excel (.xlsx)
-app.get('/api/export-excel', (req, res) => {
+apiRouter.get('/export-excel', (req, res) => {
   try {
     const list = getRegistrations();
 
@@ -307,7 +310,7 @@ app.get('/api/export-excel', (req, res) => {
 });
 
 // API: Admin Authentication
-app.post('/api/login', (req, res) => {
+apiRouter.post('/login', (req, res) => {
   const { username, password } = req.body;
   const settings = getSettings();
   const validUser = settings.adminUsername || 'admin';
@@ -329,11 +332,11 @@ app.post('/api/login', (req, res) => {
 });
 
 // API: Get & Update Settings
-app.get('/api/settings', (req, res) => {
+apiRouter.get('/settings', (req, res) => {
   res.json({ success: true, settings: getSettings() });
 });
 
-app.post('/api/settings', (req, res) => {
+apiRouter.post('/settings', (req, res) => {
   try {
     const { adminWhatsApp, adminUsername, adminPassword, eventName, venue } = req.body;
     const current = getSettings();
@@ -352,8 +355,12 @@ app.post('/api/settings', (req, res) => {
   }
 });
 
-// Start Server (Only when not running inside Vercel serverless function)
-if (!process.env.VERCEL) {
+// Mount API Router on both /api and /
+app.use('/api', apiRouter);
+app.use('/', apiRouter);
+
+// Start Server (Only when run directly, never when required by Vercel serverless function)
+if (require.main === module) {
   app.listen(PORT, () => {
     console.log(`====================================================`);
     console.log(`🚀 AWS Community Day Server running live!`);

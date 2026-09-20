@@ -988,13 +988,19 @@
 
     // Fetch Registrations from server (with localStorage fallback)
     async function loadData() {
+      const localList = JSON.parse(localStorage.getItem('aws_registrations_cache') || '[]');
       try {
         const res = await fetch('/api/registrations');
         if (res.ok) {
           const data = await res.json();
-          allRegistrations = data.registrations || [];
+          const serverList = data.registrations || [];
+          const map = new Map();
+          [...serverList, ...localList].forEach(item => {
+            if (item && item.id) map.set(item.id, item);
+          });
+          allRegistrations = Array.from(map.values());
           settings = data.settings || {};
-          // Cache in localStorage as backup
+          if (!settings.adminWhatsApp) settings.adminWhatsApp = '919343756202';
           localStorage.setItem('aws_registrations_cache', JSON.stringify(allRegistrations));
           localStorage.setItem('aws_settings_cache', JSON.stringify(settings));
         } else {
@@ -1002,8 +1008,8 @@
         }
       } catch (err) {
         console.warn('Backend not reachable, loading from browser local cache:', err);
-        allRegistrations = JSON.parse(localStorage.getItem('aws_registrations_cache') || '[]');
-        settings = JSON.parse(localStorage.getItem('aws_settings_cache') || '{"adminWhatsApp":""}');
+        allRegistrations = localList;
+        settings = JSON.parse(localStorage.getItem('aws_settings_cache') || '{"adminWhatsApp":"919343756202"}');
       }
 
       updateUI();

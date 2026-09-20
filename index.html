@@ -871,6 +871,11 @@
         let data;
         if (response.ok) {
           data = await response.json();
+          if (data && data.registration) {
+            const localList = JSON.parse(localStorage.getItem('aws_registrations_cache') || '[]');
+            localList.unshift(data.registration);
+            localStorage.setItem('aws_registrations_cache', JSON.stringify(localList));
+          }
         } else {
           throw new Error('API request failed');
         }
