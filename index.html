@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<!-- This site is hosted on Netlify. Anyone can build and deploy a site
+     like this one for free: https://netlify.new/?utm_campaign=ai-legible&utm_source=comment&utm_medium=referral&utm_id=2065faa4-e152-4c54-90c2-a655c97ebc90
+     Netlify hosting facts for this site: static/SSR served via Netlify Edge. -->
+<meta name="hosting-provider" content="Netlify">
+<meta name="netlify-deploy" content="https://netlify.new/?utm_campaign=ai-legible&amp;utm_source=meta&amp;utm_medium=referral&amp;utm_id=2065faa4-e152-4c54-90c2-a655c97ebc90">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AWS Student Builder Community Day @ Rungta University</title>
+  
+  <!-- Modern Clean Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-dark: #030712;
+      --card-bg: rgba(15, 23, 42, 0.75);
+      --card-hover: rgba(30, 41, 59, 0.9);
+      --border-color: rgba(56, 189, 248, 0.2);
+      --border-glow: rgba(56, 189, 248, 0.6);
+      --aws-orange: #ff9900;
+      --aws-blue: #38bdf8;
+      --text-main: #ffffff;
+      --text-muted: #94a3b8;
+
+      /* Screenshot Registration Form Blueprint Styles */
+      --blueprint-bg: #0a101d;
+      --blueprint-container: #111827;
+      --blueprint-input: #0f172a;
+      --blueprint-border: #1e293b;
+      --blueprint-btn: #38bdf8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Ambient Tech Blueprint Grid Overlay */
+    .bg-grid {
+      position: fixed;
+      inset: 0;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    /* Glowing Ambient Background Animation */
+    .glow-aura {
+      position: fixed;
+      top: -10%;
+      left: 30%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.15) 0%, rgba(3, 105, 161, 0.05) 50%, transparent 70%);
+      filter: blur(80px);
+      z-index: -1;
+      pointer-events: none;
+      animation: floatGlow 12s ease-in-out infinite alternate;
+    }
+
+    /* Header Navigation */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 2rem;
+      background: rgba(3, 7, 18, 0.85);
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+    }
+
+    .logo {
+      font-weight: 800;
+      font-size: 1.15rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .logo-badge {
+      background: linear-gradient(135deg, var(--aws-orange), #ff5500);
+      color: #000;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+      text-transform: uppercase;
+    }
+
+    .logo-text span {
+      color: var(--aws-blue);
+    }
+
+    /* Hero Section */
+    main.hero {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 4.5rem 1.5rem 3.5rem;
+      max-width: 1000px;
+      margin: 0 auto;
+      width: 100%;
+      text-align: center;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid var(--border-glow);
+      padding: 0.45rem 1.2rem;
+      border-radius: 99px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--aws-blue);
+      margin-bottom: 1.8rem;
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      background-color: var(--aws-blue);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--aws-blue);
+      animation: pulse 2s infinite;
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 900;
+      line-height: 1.15;
+      margin-bottom: 1.2rem;
+      color: #ffffff;
+    }
+
+    h1 .highlight {
+      background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    p.subtitle {
+      color: var(--text-muted);
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      max-width: 620px;
+      margin-bottom: 2.5rem;
+      line-height: 1.6;
+    }
+
+    /* Primary Action Trigger Button */
+    .btn-primary {
+      background: linear-gradient(135deg, #0284c7 0%, #0369a1 50%, #6366f1 100%);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 1rem 2.5rem;
+      font-size: 1rem;
+      font-weight: 800;
+      border-radius: 12px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      box-shadow: 0 0 25px rgba(2, 132, 199, 0.5);
+      transition: all 0.25s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 35px rgba(56, 189, 248, 0.7);
+    }
+
+    /* Bento Features Grid */
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.2rem;
+      width: 100%;
+      margin-top: 3.5rem;
+    }
+
+    .bento-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      padding: 1.8rem;
+      border-radius: 16px;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .bento-card:hover {
+      background: var(--card-hover);
+      border-color: var(--border-glow);
+      transform: translateY(-4px);
+    }
+
+    .card-icon {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+    }
+
+    .bento-card h3 {
+      font-size: 1.1rem;
+      font-weight: 800;
+      margin-bottom: 0.4rem;
+      color: var(--text-main);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .bento-card p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+
+    /* Modal Overlay */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(3, 7, 18, 0.88);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      padding: 1.2rem;
+      backdrop-filter: blur(8px);
+    }
+
+    .modal-overlay.active {
+      display: flex !important;
+    }
+
+    /* REGISTRATION MODAL -> EXACT SCREENSHOT THEME */
+    .blueprint-modal {
+      background: var(--blueprint-container);
+      border: 1px solid var(--blueprint-border);
+      padding: 2rem;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 500px;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+      animation: modalFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 1rem;
+      right: 1.2rem;
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      font-size: 1.8rem;
+      cursor: pointer;
+    }
+
+    .close-modal:hover {
+      color: #ffffff;
+    }
+
+    .step-header-img {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.8rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .step-icon-img {
+      color: var(--blueprint-btn);
+      font-size: 1.3rem;
+      margin-top: 0.1rem;
+    }
+
+    .blueprint-modal h2 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .blueprint-modal p.desc {
+      color: #94a3b8;
+      font-size: 0.88rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.4;
+    }
+
+    /* Form Fields Matching Screenshot */
+    .bp-group {
+      margin-bottom: 1.2rem;
+      text-align: left;
+    }
+
+    .bp-row {
+      display: flex;
+      gap: 0.8rem;
+    }
+
+    .bp-row .bp-group {
+      flex: 1;
+    }
+
+    .bp-group label {
+      display: block;
+      margin-bottom: 0.4rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      color: #ffffff;
+    }
+
+    .bp-group label span.req {
+      color: var(--blueprint-btn);
+    }
+
+    .bp-group input, .bp-group select {
+      width: 100%;
+      padding: 0.85rem 0.9rem;
+      background: var(--blueprint-input);
+      border: 1px solid var(--blueprint-border);
+      color: #ffffff;
+      border-radius: 6px;
+      outline: none;
+      font-size: 0.9rem;
+      transition: border-color 0.2s ease;
+    }
+
+    .bp-group input:focus, .bp-group select:focus {
+      border-color: var(--blueprint-btn);
+    }
+
+    .bp-btn-action {
+      background: var(--blueprint-btn);
+      color: #000;
+      border: none;
+      padding: 0.9rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      font-weight: 700;
+      border-radius: 6px;
+      cursor: pointer;
+      width: 100%;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: background 0.2s ease;
+    }
+
+    .bp-btn-action:hover {
+      background: #7dd3fc;
+    }
+
+    /* Event Highlights Card */
+    .highlights-modal-card {
+      background: #0f172a;
+      border: 1px solid var(--border-glow);
+      padding: 2rem;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 480px;
+      position: relative;
+    }
+
+    .highlights-list {
+      list-style: none;
+      text-align: left;
+      margin: 1.2rem 0;
+    }
+
+    .highlights-list li {
+      padding: 0.8rem 0;
+      border-bottom: 1px solid var(--border-color);
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .highlights-list li strong {
+      color: var(--aws-blue);
+    }
+
+    .success-box {
+      display: none;
+      text-align: center;
+      padding: 1.5rem 0;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    @keyframes floatGlow {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(40px, 40px); }
+    }
+
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .admin-link-btn {
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid var(--border-glow);
+      color: var(--aws-blue);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 0.45rem 0.95rem;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .admin-link-btn:hover {
+      background: rgba(56, 189, 248, 0.15);
+      box-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
+      color: #fff;
+    }
+
+    /* Pass Card and WhatsApp elements */
+    .pass-container {
+      display: none;
+      text-align: left;
+      animation: modalFadeIn 0.3s ease;
+    }
+    .pass-card-box {
+      background: #090e1a;
+      border: 1px dashed var(--aws-blue);
+      border-radius: 10px;
+      padding: 1.2rem;
+      margin: 1.2rem 0;
+      position: relative;
+    }
+    .pass-badge {
+      display: inline-block;
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid var(--aws-blue);
+      color: var(--aws-blue);
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 800;
+      font-size: 0.95rem;
+      padding: 0.3rem 0.7rem;
+      border-radius: 6px;
+      margin-bottom: 0.8rem;
+    }
+    .pass-details-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6rem;
+      font-size: 0.85rem;
+      margin-bottom: 0.6rem;
+    }
+    .pass-detail-item label {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-family: 'JetBrains Mono', monospace;
+      display: block;
+      margin-bottom: 0.1rem;
+    }
+    .pass-detail-item div {
+      font-weight: 700;
+      color: #fff;
+    }
+    .wa-btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      margin-top: 1.2rem;
+    }
+    .btn-wa-action {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      padding: 0.85rem;
+      border-radius: 8px;
+      font-weight: 800;
+      font-size: 0.9rem;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+      width: 100%;
+    }
+    .btn-wa-student {
+      background: linear-gradient(135deg, #25d366, #128c7e);
+      color: #fff;
+      box-shadow: 0 0 15px rgba(37, 211, 102, 0.3);
+    }
+    .btn-wa-student:hover {
+      background: #25d366;
+      box-shadow: 0 0 25px rgba(37, 211, 102, 0.6);
+      transform: translateY(-1px);
+    }
+    @keyframes waPulse {
+      0%, 100% {
+        box-shadow: 0 0 15px rgba(37, 211, 102, 0.4);
+        transform: scale(1);
+      }
+      50% {
+        box-shadow: 0 0 28px rgba(37, 211, 102, 0.85);
+        transform: scale(1.02);
+      }
+    }
+    .btn-wa-admin {
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      color: var(--aws-blue);
+    }
+    .btn-wa-admin:hover {
+      border-color: var(--aws-blue);
+      background: rgba(56, 189, 248, 0.1);
+    }
+    .btn-copy-pass {
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      padding: 0.65rem;
+      border-radius: 6px;
+      cursor: pointer;
+      width: 100%;
+      transition: all 0.2s;
+    }
+    .btn-copy-pass:hover {
+      color: #fff;
+      border-color: var(--aws-blue);
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      border-top: 1px solid var(--border-color);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-grid"></div>
+  <div class="glow-aura"></div>
+
+  <!-- Header -->
+  <header>
+    <div class="logo">
+      <span class="logo-badge">AWS</span>
+      <span class="logo-text">Student <span>Builder</span></span>
+    </div>
+    <div style="display: flex; gap: 0.8rem; align-items: center;">
+      <a href="/admin" class="admin-link-btn" title="Open Admin Panel">
+        ⚡ Admin Panel ↗
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero Content -->
+  <main class="hero">
+    <div class="status-badge">
+      <span class="pulse-dot"></span> Official Campus Event
+    </div>
+
+    <h1>AWS Student Builder <br><span class="highlight">Community Day</span></h1>
+    <p class="subtitle">Join us at Rungta University for cloud architecture workshops, hands-on serverless labs, and peer networking.</p>
+    
+    <button class="btn-primary" id="openRegBtn">
+      Register Now <span>→</span>
+    </button>
+
+    <!-- Bento Grid -->
+    <div class="bento-grid">
+      <div class="bento-card" id="locationCard">
+        <div class="card-icon">📍</div>
+        <h3>Campus Location <span>↗</span></h3>
+        <p>Rungta University Campus. Tap to open map navigation.</p>
+      </div>
+
+      <div class="bento-card" id="highlightsCard">
+        <div class="card-icon">💡</div>
+        <h3>Event Highlights <span>↗</span></h3>
+        <p>Cloud workshops, hands-on serverless labs & peer tech networking.</p>
+      </div>
+
+      <div class="bento-card" id="entryCard">
+        <div class="card-icon">🎟️</div>
+        <h3>Free Student Pass <span>↗</span></h3>
+        <p>100% free pass for all university students. Click to reserve your seat.</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- REGISTRATION MODAL (MATCHING SCREENSHOT) -->
+  <div class="modal-overlay" id="regModal">
+    <div class="blueprint-modal">
+      <button class="close-modal" id="closeRegBtn">&times;</button>
+      
+      <div class="step-header-img">
+        <div class="step-icon-img">⬡</div>
+        <div>
+          <h2>Step 1: Student Details</h2>
+          <p class="desc">Fill in your official university details to reserve your seat for AWS Community Day.</p>
+        </div>
+      </div>
+
+      <form id="registrationForm">
+        <div class="bp-group">
+          <label for="name">Full Name <span class="req">*</span></label>
+          <input type="text" id="name" required placeholder="Enter your full name">
+        </div>
+        
+        <div class="bp-group">
+          <label for="email">Email Address <span class="req">*</span></label>
+          <input type="email" id="email" required placeholder="student@rungta.ac.in">
+        </div>
+
+        <div class="bp-group">
+          <label for="phone">Mobile Number <span class="req">*</span></label>
+          <input type="tel" id="phone" pattern="[0-9]{10}" required placeholder="10-digit Mobile Number">
+        </div>
+
+        <div class="bp-group">
+          <label for="branch">Select Your Branch <span class="req">*</span></label>
+          <select id="branch" required>
+            <option value="">Select branch from dropdown</option>
+            <option value="CSE">CSE (Computer Science)</option>
+            <option value="IT">Information Technology</option>
+            <option value="AI_DS">AI & Data Science</option>
+            <option value="ECE">ECE</option>
+            <option value="EEE">EEE / Electrical</option>
+            <option value="MECH">Mechanical</option>
+            <option value="CIVIL">Civil</option>
+            <option value="OTHER">Other</option>
+          </select>
+        </div>
+
+        <div class="bp-row">
+          <div class="bp-group">
+            <label for="year">Year <span class="req">*</span></label>
+            <select id="year" required>
+              <option value="">Select</option>
+              <option value="1">1st Year</option>
+              <option value="2">2nd Year</option>
+              <option value="3">3rd Year</option>
+              <option value="4">4th Year</option>
+            </select>
+          </div>
+
+          <div class="bp-group">
+            <label for="section">Section <span class="req">*</span></label>
+            <input type="text" id="section" required placeholder="e.g. A, B, C">
+          </div>
+        </div>
+
+        <button type="submit" class="bp-btn-action" style="margin-top: 0.5rem;">
+          CONFIRM REGISTRATION &rarr;
+        </button>
+      </form>
+
+      <!-- Digital Pass & WhatsApp Delivery -->
+      <div class="pass-container" id="passContainer">
+        <div style="text-align: center; margin-bottom: 0.8rem;">
+          <div style="font-size: 2.2rem; margin-bottom: 0.2rem;">🎉</div>
+          <h2 style="font-size: 1.3rem; color: #fff;">Registration Confirmed!</h2>
+          <p style="color: #94a3b8; font-size: 0.82rem;">Your official student entry pass has been generated.</p>
+        </div>
+
+        <div class="pass-card-box">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span class="pass-badge" id="displayPassId">#AWS-RU-0000</span>
+            <span style="font-size: 0.72rem; color: #38bdf8; font-family: 'JetBrains Mono', monospace;">CONFIRMED</span>
+          </div>
+          <div class="pass-details-grid">
+            <div class="pass-detail-item">
+              <label>Student</label>
+              <div id="displayName">---</div>
+            </div>
+            <div class="pass-detail-item">
+              <label>Branch</label>
+              <div id="displayBranch">---</div>
+            </div>
+            <div class="pass-detail-item">
+              <label>Year & Sec</label>
+              <div id="displayYearSec">---</div>
+            </div>
+            <div class="pass-detail-item">
+              <label>Mobile</label>
+              <div id="displayPhone">---</div>
+            </div>
+          </div>
+          <div style="border-top: 1px dashed rgba(255,255,255,0.1); padding-top: 0.6rem; font-size: 0.78rem; color: var(--text-muted);">
+            📍 Venue: Rungta University Campus
+          </div>
+        </div>
+
+        <!-- WhatsApp Action Buttons -->
+        <div class="wa-btn-group">
+          <a href="#" target="_blank" class="btn-wa-action btn-wa-student" id="waAdminDirectLink" style="font-size: 0.95rem;">
+            <span>💬</span> Open in WhatsApp &rarr;
+          </a>
+
+          <button type="button" class="btn-copy-pass" id="copyPassBtn">
+            📋 Copy Pass Details to Clipboard
+          </button>
+          
+          <button type="button" class="btn-copy-pass" id="registerAnotherBtn" style="border-color: transparent;">
+            &larr; Register Another Student
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HIGHLIGHTS MODAL -->
+  <div class="modal-overlay" id="highlightsModal">
+    <div class="highlights-modal-card">
+      <button class="close-modal" id="closeHighlightsBtn">&times;</button>
+      <h2 style="font-size: 1.3rem; font-weight: 800; color: var(--aws-blue);">What to Expect</h2>
+      
+      <ul class="highlights-list">
+        <li><strong>Cloud Fundamentals:</strong> Core AWS cloud architecture and scalable infrastructure.</li>
+        <li><strong>Hands-on Labs:</strong> Deploy real applications live on AWS Serverless.</li>
+        <li><strong>Generative AI:</strong> Learn how to build intelligent apps with AWS AI services.</li>
+        <li><strong>Community Networking:</strong> Connect with cloud mentors and student developers.</li>
+      </ul>
+
+      <button class="btn-primary" id="modalRegBtn" style="width: 100%; justify-content: center; margin-top: 0.5rem;">
+        Get Registration Pass
+      </button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    &copy; AWS Student Builder Group — Rungta University Chapter &bull; <a href="/admin" style="color: var(--aws-blue); text-decoration: none; font-weight: 600;">Admin Console</a>
+  </footer>
+
+  <script>
+    const TARGET_ADMIN_WHATSAPP = '919343756202';
+
+    // Document Elements
+    const regModal = document.getElementById('regModal');
+    const highlightsModal = document.getElementById('highlightsModal');
+    const registrationForm = document.getElementById('registrationForm');
+    const stepHeader = document.querySelector('.step-header-img');
+    const passContainer = document.getElementById('passContainer');
+    const displayPassId = document.getElementById('displayPassId');
+    const displayName = document.getElementById('displayName');
+    const displayBranch = document.getElementById('displayBranch');
+    const displayYearSec = document.getElementById('displayYearSec');
+    const displayPhone = document.getElementById('displayPhone');
+    const waAdminDirectLink = document.getElementById('waAdminDirectLink');
+    const copyPassBtn = document.getElementById('copyPassBtn');
+    const registerAnotherBtn = document.getElementById('registerAnotherBtn');
+
+    let currentWhatsAppText = '';
+
+    // Helper functions
+    function openModal(modal) {
+      if (modal) modal.classList.add('active');
+    }
+
+    function closeModal(modal) {
+      if (modal) {
+        modal.classList.remove('active');
+        if (modal === regModal) {
+          resetRegistrationModal();
+        }
+      }
+    }
+
+    function resetRegistrationModal() {
+      passContainer.style.display = 'none';
+      if (stepHeader) stepHeader.style.display = 'flex';
+      registrationForm.style.display = 'block';
+      registrationForm.reset();
+    }
+
+    // Button Click Handlers
+    document.getElementById('openRegBtn').addEventListener('click', function() { openModal(regModal); });
+    document.getElementById('entryCard').addEventListener('click', function() { openModal(regModal); });
+    document.getElementById('highlightsCard').addEventListener('click', function() { openModal(highlightsModal); });
+
+    document.getElementById('locationCard').addEventListener('click', function() {
+      window.open("https://maps.app.goo.gl/J7DvAnneeEWmdWRQ8", "_blank");
+    });
+
+    document.getElementById('closeRegBtn').addEventListener('click', function() { closeModal(regModal); });
+    document.getElementById('closeHighlightsBtn').addEventListener('click', function() { closeModal(highlightsModal); });
+
+    document.getElementById('modalRegBtn').addEventListener('click', function() {
+      closeModal(highlightsModal);
+      openModal(regModal);
+    });
+
+    // Close on backdrop overlay click
+    window.addEventListener('click', function(e) {
+      if (e.target === regModal) closeModal(regModal);
+      if (e.target === highlightsModal) closeModal(highlightsModal);
+    });
+
+    // Copy Pass Details
+    copyPassBtn.addEventListener('click', function() {
+      if (navigator.clipboard && currentWhatsAppText) {
+        navigator.clipboard.writeText(currentWhatsAppText).then(() => {
+          copyPassBtn.textContent = '✅ Copied to Clipboard!';
+          setTimeout(() => {
+            copyPassBtn.textContent = '📋 Copy Pass Details to Clipboard';
+          }, 2500);
+        });
+      }
+    });
+
+    registerAnotherBtn.addEventListener('click', resetRegistrationModal);
+
+    // Handle Form Submit
+    registrationForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const submitBtn = registrationForm.querySelector('button[type="submit"]');
+      const originalBtnText = submitBtn.innerHTML;
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = 'SENDING TO WHATSAPP... ⏳';
+
+      const studentData = {
+        name: document.getElementById('name').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        phone: document.getElementById('phone').value.trim(),
+        branch: document.getElementById('branch').value.trim(),
+        year: document.getElementById('year').value.trim(),
+        section: document.getElementById('section').value.trim()
+      };
+
+      try {
+        const response = await fetch('/api/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(studentData)
+        });
+
+        let data;
+        if (response.ok) {
+          data = await response.json();
+        } else {
+          throw new Error('API request failed');
+        }
+
+        renderSuccessPass(data);
+      } catch (err) {
+        console.warn('Backend server unavailable, processing client-side:', err);
+        const randomId = 'AWS-RU-' + Math.floor(1000 + Math.random() * 9000);
+        const now = new Date();
+        const formattedDate = now.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', dateStyle: 'medium', timeStyle: 'short' });
+        
+        const fallbackRecord = {
+          id: randomId,
+          ...studentData,
+          registeredAt: now.toISOString(),
+          formattedDate: formattedDate
+        };
+
+        // Cache in browser localStorage
+        const localList = JSON.parse(localStorage.getItem('aws_registrations_cache') || '[]');
+        localList.unshift(fallbackRecord);
+        localStorage.setItem('aws_registrations_cache', JSON.stringify(localList));
+
+        const cleanPhone = studentData.phone.replace(/[^0-9]/g, '');
+        const phoneWithCountry = cleanPhone.length === 10 ? `91${cleanPhone}` : cleanPhone;
+        
+        const fallbackText = `🚀 *NEW REGISTRATION — AWS COMMUNITY DAY* 🚀\n` +
+          `━━━━━━━━━━━━━━━━━━━━\n` +
+          `🎟️ *Pass ID*: #${randomId}\n` +
+          `👤 *Student Name*: ${studentData.name}\n` +
+          `📱 *Mobile*: ${studentData.phone}\n` +
+          `📧 *Email*: ${studentData.email}\n` +
+          `🎓 *Branch*: ${studentData.branch}\n` +
+          `📅 *Year*: ${studentData.year} Year | *Section*: ${studentData.section}\n` +
+          `🏛️ *Venue*: Rungta University Campus\n` +
+          `⏰ *Registered On*: ${formattedDate}\n` +
+          `━━━━━━━━━━━━━━━━━━━━\n` +
+          `✅ *Status*: Confirmed Student Pass`;
+
+        renderSuccessPass({
+          registration: fallbackRecord,
+          whatsappText: fallbackText,
+          studentWhatsAppUrl: `https://wa.me/${phoneWithCountry}?text=${encodeURIComponent(fallbackText)}`,
+          adminWhatsAppUrl: `https://wa.me/${TARGET_ADMIN_WHATSAPP}?text=${encodeURIComponent(fallbackText)}`
+        });
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnText;
+      }
+    });
+
+    function renderSuccessPass(data) {
+      const reg = data.registration;
+      currentWhatsAppText = data.whatsappText;
+
+      displayPassId.textContent = `#${reg.id}`;
+      displayName.textContent = reg.name;
+      displayBranch.textContent = reg.branch;
+      displayYearSec.textContent = `${reg.year} Yr • Sec ${reg.section}`;
+      displayPhone.textContent = reg.phone;
+
+      // WhatsApp Link (Target: 9343756202)
+      const adminWaUrl = data.adminWhatsAppUrl || `https://wa.me/${TARGET_ADMIN_WHATSAPP}?text=${encodeURIComponent(currentWhatsAppText)}`;
+      waAdminDirectLink.href = adminWaUrl;
+
+      if (stepHeader) stepHeader.style.display = 'none';
+      registrationForm.style.display = 'none';
+      passContainer.style.display = 'block';
+
+      // Automatically launch WhatsApp
+      try {
+        window.open(adminWaUrl, '_blank');
+      } catch (e) {
+        console.log('Popup blocked, available via button');
+      }
+    }
+  </script>
+</body>
+</html>
+<script async src="/.netlify/scripts/hud?variant=public" data-nf-variant="public" data-netlify-site-id="2065faa4-e152-4c54-90c2-a655c97ebc90" data-app-host="app.netlify.com"></script>
+
